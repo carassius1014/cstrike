@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": ["es2015", "es2016", "es2017", "es6"],
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "esModuleInterop": true,
+    "keyofStringsOnly": true,
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "allowUnreachableCode": false,
+    "allowSyntheticDefaultImports": true,
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "strict": true,
+    "pretty": true,
+    "target": "ES2019"
+  },
+  "include": ["butler/**/*.ts"]
+}

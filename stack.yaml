@@ -1,0 +1,33 @@
+resolver: lts-17.11
+
+ghc-options:
+  $targets: -O2
+    -Wall
+    -Wcompat
+    -Werror
+    -Wmissing-deriving-strategies
+    -Wwarn=name-shadowing
+    -rtsopts
+    -threaded
+    -with-rtsopts=-N
+
+packages:
+  - servant
+
+extra-deps:
+  - github: carassius1014/praeludium
+    commit: e51d8a74cb95496a6901688f0be397c9648d9177
+    subdirs:
+      - .
+      - optics
+
+allow-newer: true
+
+extra-include-dirs:
+  - ~/.nix-profile/include
+
+nix:
+  enable: true
+  add-gc-roots: true
+  pure: false
+  shell-file: stack.nix

@@ -1,0 +1,10 @@
+# NodeJS
+node_modules/
+dist/
+
+# Haskell stack
+.stack-work/
+*.cabal
+
+# private
+.envrc

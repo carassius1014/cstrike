@@ -1,0 +1,23 @@
+name: cstrike-servant
+
+default-extensions: !include ./default-extensions.yaml
+
+library:
+  source-dirs:
+    - lib
+  dependencies:
+    - base
+    - praeludium
+
+executables:
+  servant:
+    source-dirs:
+      - exe
+    main: Main.hs
+    dependencies:
+      - base
+      - cstrike-servant
+    when:
+      - condition: false
+        other-modules:
+          - Paths_cstrike_servant

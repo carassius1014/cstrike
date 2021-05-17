@@ -1,0 +1,11 @@
+:set prompt "\ESC[34mλ= \ESC[m"
+
+:set -package cstrike-servant
+
+import CStrike.Servant.Prelude
+:set -interactive-print=print
+
+:set -XNoImplicitPrelude
+:set -XOverloadedStrings
+:set -XTypeApplications
+:set -Wno-type-defaults
