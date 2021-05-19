@@ -1,13 +1,16 @@
 import { App } from '@slack/bolt';
 
+import * as ServerConfigModal from '../views/serverConfigModal';
+
 export { handleCStrikeSlashCommand };
 
 function handleCStrikeSlashCommand(app: App): void {
     app.command('/cstrike', async ({ ack, body, client }) => {
         await ack();
-        await client.chat.postMessage({
-            channel: body.user_id,
-            text: 'You triggered "/cstrike".',
+        const { trigger_id } = body;
+        await client.views.open({
+            trigger_id,
+            view: ServerConfigModal.view,
         });
     });
 }

@@ -1,4 +1,5 @@
 import { App } from '@slack/bolt';
+
 import { handleCStrikeSlashCommand } from './cstrikeSlashCommand';
 
 export { prepareHandlers };
