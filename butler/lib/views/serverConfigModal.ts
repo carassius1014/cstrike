@@ -10,10 +10,12 @@ export {
     callbackId,
     nameInputBlockId,
     nameInputActionId,
-    passwordInputActionId,
     passwordInputBlockId,
+    passwordInputActionId,
     playersSelectBlockId,
     playersSelectActionId,
+    mapsSelectBlockId,
+    mapsSelectActionId,
 };
 
 const callbackId = 'modal-ServerConfig';
