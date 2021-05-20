@@ -2,9 +2,9 @@ import { App } from '@slack/bolt';
 
 import * as ServerConfigModal from '../views/serverConfigModal';
 
-export { handleCStrikeSlashCommand };
+export { handle };
 
-function handleCStrikeSlashCommand(app: App): void {
+function handle(app: App): void {
     app.command('/cstrike', async ({ ack, body, client }) => {
         await ack();
         const { trigger_id } = body;
