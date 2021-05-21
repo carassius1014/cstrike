@@ -3,12 +3,7 @@ import * as E from 'fp-ts/Either';
 
 import { Environment } from './env';
 
-export { Config, Error, parse };
-
-interface Error {
-    type: 'config';
-    message: string;
-}
+export { Config, parse };
 
 interface Config {
     token: string;
@@ -17,20 +12,20 @@ interface Config {
 }
 
 function parse(env: Environment): E.Either<Error, Config> {
+    function buildError(key: string): Error {
+        return new Error(`Unable to parse env var: ${key}`);
+    }
+
     function parseString(key: string): E.Either<Error, string> {
-        const val = env[key];
-        return val === undefined ? E.left({ type: 'config', message: `cannot parse env var: ${key}` }) : E.right(val);
+        return E.fromNullable(buildError(key))(env[key]);
     }
 
     function parseNumber(key: string): E.Either<Error, number> {
-        const val = env[key];
-        if (val === undefined) {
-            return E.left({ type: 'config', message: `cannot parse env var: ${key}` });
-        }
-        const num = parseInt(val);
-        return num === undefined
-            ? E.left({ type: 'config', message: `cannot parse env var: ${key} as a number` })
-            : E.right(num);
+        const fromNullable = E.fromNullable(buildError(key));
+        return Do(E.Monad)
+            .bind('val', fromNullable(env[key]))
+            .bindL('num', ({ val }) => fromNullable(parseInt(val)))
+            .return(({ num }) => num);
     }
 
     return Do(E.Monad)
