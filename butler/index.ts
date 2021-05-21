@@ -10,7 +10,7 @@ function main(): void {
         Config.parse(process.env),
         E.match(
             (err) => {
-                Console.log(err)();
+                Console.error(err)();
             },
             async (config) => {
                 const app = App.create(config);
