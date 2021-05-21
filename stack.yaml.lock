@@ -5,6 +5,54 @@
 
 packages:
 - completed:
+    size: 108441
+    subdir: .
+    url: https://github.com/awakesecurity/grpc-haskell/archive/8525994a4fbb6768a2317d7e54fe594b8940b579.tar.gz
+    name: grpc-haskell
+    version: 0.1.0
+    sha256: d45e4624857c767ac1cc8ab17e22ec142902cbf66b2e82d30383d4604e068d14
+    pantry-tree:
+      size: 7299
+      sha256: 27be870fe6955f298b70aa83ea41bb33fd536856e02096d6be89686aa4bacd0e
+  original:
+    subdir: .
+    url: https://github.com/awakesecurity/grpc-haskell/archive/8525994a4fbb6768a2317d7e54fe594b8940b579.tar.gz
+- completed:
+    size: 108441
+    subdir: core
+    url: https://github.com/awakesecurity/grpc-haskell/archive/8525994a4fbb6768a2317d7e54fe594b8940b579.tar.gz
+    name: grpc-haskell-core
+    version: 0.1.0
+    sha256: d45e4624857c767ac1cc8ab17e22ec142902cbf66b2e82d30383d4604e068d14
+    pantry-tree:
+      size: 2543
+      sha256: 5be44c62b21f23979ea1f5ddd00b455de97bef37a902b2eb98d1ae0787d412a2
+  original:
+    subdir: core
+    url: https://github.com/awakesecurity/grpc-haskell/archive/8525994a4fbb6768a2317d7e54fe594b8940b579.tar.gz
+- completed:
+    size: 91715
+    url: https://github.com/awakesecurity/proto3-suite/archive/0af901f9ef3b9719e08eae4fab8fd700d6c8047a.tar.gz
+    name: proto3-suite
+    version: 0.4.2.0
+    sha256: b294ff0fe24c6c256dc8eca1d44c2a9a928b9a1bc70ddce6a1d059499edea119
+    pantry-tree:
+      size: 7180
+      sha256: 320a0ed1940b8f6d56f56451da512cf7f54475e02631d2894d5a6ead8ce4b063
+  original:
+    url: https://github.com/awakesecurity/proto3-suite/archive/0af901f9ef3b9719e08eae4fab8fd700d6c8047a.tar.gz
+- completed:
+    size: 47562
+    url: https://github.com/awakesecurity/proto3-wire/archive/d92ec32ef0f15842b07fb226d8f2d15f36c5fb20.tar.gz
+    name: proto3-wire
+    version: 1.2.0
+    sha256: 8e2a552763b0cc619c74819498c76425475b3ec379655cb4dd38315a7a0452df
+    pantry-tree:
+      size: 1811
+      sha256: ee8e002b81c0cf6e94d351248edf428864a6f012d7266f86d22e18de09034d95
+  original:
+    url: https://github.com/awakesecurity/proto3-wire/archive/d92ec32ef0f15842b07fb226d8f2d15f36c5fb20.tar.gz
+- completed:
     size: 10246
     subdir: .
     url: https://github.com/carassius1014/praeludium/archive/e51d8a74cb95496a6901688f0be397c9648d9177.tar.gz
