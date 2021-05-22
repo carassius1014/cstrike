@@ -1,2 +1,0 @@
-module CStrike.Servant
-    () where

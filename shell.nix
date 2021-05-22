@@ -7,11 +7,17 @@ let
 in pkgs.mkShell {
   buildInputs = [
     nodejs
-    pkgs.haskell.packages.ghc8104.brittany
+    pkgs.clippy
+    pkgs.cargo
+    pkgs.cargo-watch
+    pkgs.grpcurl
     pkgs.heroku
     pkgs.niv
     pkgs.nixfmt
-    pkgs.stack
+    pkgs.rustc
+    pkgs.rustfmt
     yarn
   ];
+
+  RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
 }

@@ -1,5 +1,3 @@
-stack-build := stack build --fast
-
 all:
 
 ##########
@@ -9,12 +7,11 @@ all:
 .PHONY: format
 format:
 	yarn prettier --write .
-	git ls-files "*.hs" | xargs brittany --config-file ./brittany.yaml --write-mode=inplace
+	git ls-files "*.rs" | xargs rustfmt
 	git ls-files "*.nix" | xargs nixfmt
 
 cleanup:
 	rm -rf node_modules/ dist/
-	stack clean
 
 ##########
 # butler #
@@ -55,14 +52,19 @@ butler.deploy:
 ###########
 
 servant.build:
-	$(stack-build)
-
-servant.build.watch:
-	$(stack-build) --file-watch
+	cargo build
 
 servant.exec:
-	$(stack-build) && stack exec -- servant
+	cargo run
 
-.PHONY: servant.repl
-servant.repl:
-	stack ghci
+servant.check:
+	cargo check
+
+servant.check.watch:
+	cargo watch -x check
+
+servant.lint:
+	cargo clippy
+
+servant.lint.watch:
+	cargo watch -x clippy

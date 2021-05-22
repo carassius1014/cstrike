@@ -2,9 +2,8 @@
 node_modules/
 dist/
 
-# Haskell stack
-.stack-work/
-*.cabal
+# Rust
+target/
 
 # private
 .envrc

@@ -1,0 +1,10 @@
+[package]
+name = "cstrike-servant"
+version = "0.0.0"
+authors = ["Jiyu Zhou <carassius1014@gmail.com>"]
+edition = '2018'
+repository = "https://github.com/carassius1014/cstrike/"
+
+[[bin]]
+name = "servant"
+path = "./servant/main.rs"
