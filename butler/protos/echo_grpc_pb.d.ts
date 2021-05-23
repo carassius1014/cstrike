@@ -3,8 +3,9 @@
 // package: servant
 // file: protos/echo.proto
 
-import * as protos_echo_pb from "../protos/echo_pb";
 import * as grpc from "@grpc/grpc-js";
+
+import * as protos_echo_pb from "./echo_pb";
 
 interface IEchoService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
   echo: grpc.MethodDefinition<protos_echo_pb.EchoRequest, protos_echo_pb.EchoResponse>;
