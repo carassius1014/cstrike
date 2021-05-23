@@ -6,6 +6,6 @@ export { handle };
 function handle(app: App): void {
     app.command('/echo', async ({ ack, body }) => {
         await ack();
-        Console.log(body)();
+        Console.log(`Got: ${body.text}`)();
     });
 }
