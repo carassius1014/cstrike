@@ -12,13 +12,10 @@ struct EchoService {}
 
 #[tonic::async_trait]
 impl Echo for EchoService {
-    async fn echo(
-        &self,
-        request: Request<EchoRequest>
-    ) -> Result<Response<EchoResponse>, Status> {
+    async fn echo(&self, request: Request<EchoRequest>) -> Result<Response<EchoResponse>, Status> {
         println!("Got a request: {:?}", request);
         let response = EchoResponse {
-            message: request.into_inner().message
+            message: request.into_inner().message,
         };
 
         Ok(Response::new(response))
