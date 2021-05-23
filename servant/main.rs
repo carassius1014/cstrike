@@ -27,7 +27,8 @@ impl Echo for EchoService {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let addr = "[::1]:50051".parse()?;
+    let port = std::env::var("PORT")?;
+    let addr = format!("[::1]:{}", port).parse()?;
     let service = EchoService::default();
 
     Server::builder()
