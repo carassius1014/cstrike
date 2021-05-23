@@ -14,10 +14,13 @@ in pkgs.mkShell {
     pkgs.heroku
     pkgs.niv
     pkgs.nixfmt
+    pkgs.protobuf
     pkgs.rustc
     pkgs.rustfmt
     yarn
   ];
 
+  PROTOC = "${pkgs.protobuf}/bin/protoc";
+  PROTOC_INCLUDE = "${pkgs.protobuf}/include";
   RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
 }

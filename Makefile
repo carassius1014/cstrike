@@ -8,10 +8,11 @@ all:
 format:
 	yarn prettier --write .
 	git ls-files "*.rs" | xargs rustfmt
+	cargo tomlfmt
 	git ls-files "*.nix" | xargs nixfmt
 
 cleanup:
-	rm -rf node_modules/ dist/
+	rm -rf node_modules/ dist/ target/
 
 ##########
 # butler #
@@ -55,7 +56,7 @@ servant.build:
 	cargo build
 
 servant.exec:
-	cargo run
+	cargo run --bin servant
 
 servant.check:
 	cargo check

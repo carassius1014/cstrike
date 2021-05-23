@@ -8,3 +8,11 @@ repository = "https://github.com/carassius1014/cstrike/"
 [[bin]]
 name = "servant"
 path = "./servant/main.rs"
+
+[build-dependencies]
+tonic-build = "0.4.2"
+
+[dependencies]
+prost = "0.7.0"
+tokio = { version = "1.6", features = ["macros", "rt-multi-thread"] }
+tonic = "0.4.3"
