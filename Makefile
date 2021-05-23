@@ -1,5 +1,9 @@
 all:
 
+setup:
+	yarn
+	bin/fix-grpc-tools-binaries
+
 ##########
 # common #
 ##########
@@ -69,3 +73,6 @@ servant.lint:
 
 servant.lint.watch:
 	cargo watch -x clippy
+
+protobuf.codegen:
+	bin/compile-protos

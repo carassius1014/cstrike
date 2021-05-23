@@ -1,11 +1,13 @@
 { }:
 
 let
+  grpc-tools = pkgs.callPackage ./nix/grpc-tools.nix { };
   pkgs = import ./nix/pkgs.nix;
   nodejs = import ./nix/nodejs.nix;
   yarn = import ./nix/yarn.nix;
 in pkgs.mkShell {
   buildInputs = [
+    grpc-tools
     nodejs
     pkgs.clippy
     pkgs.cargo
