@@ -9,6 +9,8 @@ interface Config {
     token: string;
     signingSecret: string;
     port: number;
+    servantHost: string;
+    servantPort: number;
 }
 
 function parse(env: Environment): E.Either<Error, Config> {
@@ -32,11 +34,15 @@ function parse(env: Environment): E.Either<Error, Config> {
         .bind('token', parseString('SLACK_BOT_TOKEN'))
         .bind('signingSecret', parseString('SLACK_SIGNING_SECRET'))
         .bind('port', parseNumber('PORT'))
-        .return(({ token, signingSecret, port }) => {
+        .bind('servantHost', parseString('SERVANT_HOST'))
+        .bind('servantPort', parseNumber('SERVANT_PORT'))
+        .return(({ token, signingSecret, port, servantHost, servantPort }) => {
             return {
                 token,
                 signingSecret,
                 port,
+                servantHost,
+                servantPort,
             };
         });
 }

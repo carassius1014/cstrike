@@ -42,7 +42,9 @@ butler.heroku.env.set:
 	heroku config:set \
 		SLACK_BOT_TOKEN="${SLACK_BOT_TOKEN}" \
 		SLACK_SIGNING_SECRET="${SLACK_SIGNING_SECRET}" \
-		NODE_ENV="production"
+		NODE_ENV="production" \
+		SERVANT_PORT="${SERVANT_PORT}" \
+		SERVANT_HOST="${SERVANT_HOST}"
 
 .PHONY: butler.heroku.logs
 butler.heroku.logs:
