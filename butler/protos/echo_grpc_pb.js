@@ -4,40 +4,40 @@
 var grpc = require('@grpc/grpc-js');
 var protos_echo_pb = require('../protos/echo_pb.js');
 
-function serialize_servant_EchoRequest(arg) {
+function serialize_cstrike_EchoRequest(arg) {
   if (!(arg instanceof protos_echo_pb.EchoRequest)) {
-    throw new Error('Expected argument of type servant.EchoRequest');
+    throw new Error('Expected argument of type cstrike.EchoRequest');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
-function deserialize_servant_EchoRequest(buffer_arg) {
+function deserialize_cstrike_EchoRequest(buffer_arg) {
   return protos_echo_pb.EchoRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_servant_EchoResponse(arg) {
+function serialize_cstrike_EchoResponse(arg) {
   if (!(arg instanceof protos_echo_pb.EchoResponse)) {
-    throw new Error('Expected argument of type servant.EchoResponse');
+    throw new Error('Expected argument of type cstrike.EchoResponse');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
-function deserialize_servant_EchoResponse(buffer_arg) {
+function deserialize_cstrike_EchoResponse(buffer_arg) {
   return protos_echo_pb.EchoResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 
 var EchoService = exports.EchoService = {
   echo: {
-    path: '/servant.Echo/Echo',
+    path: '/cstrike.Echo/Echo',
     requestStream: false,
     responseStream: false,
     requestType: protos_echo_pb.EchoRequest,
     responseType: protos_echo_pb.EchoResponse,
-    requestSerialize: serialize_servant_EchoRequest,
-    requestDeserialize: deserialize_servant_EchoRequest,
-    responseSerialize: serialize_servant_EchoResponse,
-    responseDeserialize: deserialize_servant_EchoResponse,
+    requestSerialize: serialize_cstrike_EchoRequest,
+    requestDeserialize: deserialize_cstrike_EchoRequest,
+    responseSerialize: serialize_cstrike_EchoResponse,
+    responseDeserialize: deserialize_cstrike_EchoResponse,
   },
 };
 

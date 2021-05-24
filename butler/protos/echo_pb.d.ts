@@ -1,4 +1,4 @@
-// package: servant
+// package: cstrike
 // file: protos/echo.proto
 
 import * as jspb from "google-protobuf";

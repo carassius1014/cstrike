@@ -1,10 +1,10 @@
 use tonic::{transport::Server, Request, Response, Status};
 
-use servant::echo_server::{Echo, EchoServer};
-use servant::{EchoRequest, EchoResponse};
+use cstrike::echo_server::{Echo, EchoServer};
+use cstrike::{EchoRequest, EchoResponse};
 
-mod servant {
-    tonic::include_proto!("servant");
+mod cstrike {
+    tonic::include_proto!("cstrike");
 }
 
 #[derive(Debug, Default)]

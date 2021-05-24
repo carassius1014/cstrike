@@ -1,5 +1,5 @@
 syntax = "proto3";
-package servant;
+package cstrike;
 
 service Echo {
     rpc Echo(EchoRequest) returns (EchoResponse);
