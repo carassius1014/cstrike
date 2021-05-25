@@ -11,6 +11,7 @@ interface Config {
     port: number;
     servantHost: string;
     servantPort: number;
+    cstrikeChannel: string;
 }
 
 function parse(env: Environment): E.Either<Error, Config> {
@@ -34,13 +35,15 @@ function parse(env: Environment): E.Either<Error, Config> {
         .bind('token', parseString('SLACK_BOT_TOKEN'))
         .bind('signingSecret', parseString('SLACK_SIGNING_SECRET'))
         .bind('port', parseNumber('PORT'))
+        .bind('cstrikeChannel', parseString('SLACK_CSTRIKE_CHANNEL'))
         .bind('servantHost', parseString('SERVANT_HOST'))
         .bind('servantPort', parseNumber('SERVANT_PORT'))
-        .return(({ token, signingSecret, port, servantHost, servantPort }) => {
+        .return(({ token, signingSecret, port, cstrikeChannel, servantHost, servantPort }) => {
             return {
                 token,
                 signingSecret,
                 port,
+                cstrikeChannel,
                 servantHost,
                 servantPort,
             };

@@ -2,6 +2,8 @@ export SLACK_BOT_TOKEN=<your Bot User OAuth Token>
 export SLACK_SIGNING_SECRET=<your Signing Secret>
 export PORT=<your port>
 
+export SLACK_CSTRIKE_CHANNEL=<your slack channel id>
+
 export SERVANT_PORT=<your port>
 export SERVANT_HOST=<your host>
 
