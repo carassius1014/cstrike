@@ -20,7 +20,7 @@ function handle(app: App): void {
                 },
                 async (message) => {
                     await client.chat.postMessage({
-                        channel: body.user_id,
+                        channel: body.channel_id,
                         text: message,
                     });
                 },
