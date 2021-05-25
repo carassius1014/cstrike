@@ -19,6 +19,7 @@ in pkgs.mkShell {
     pkgs.protobuf
     pkgs.rustc
     pkgs.rustfmt
+    pkgs.rust-analyzer
     yarn
   ];
 
