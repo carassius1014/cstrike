@@ -1,6 +1,4 @@
-import { App } from '@slack/bolt';
-
-import { ServantClient } from '../servant';
+import { App } from '../app';
 
 import * as CStrikeSlashCommand from './cstrikeSlashCommand';
 import * as EchoSlashCommand from './echoSlashCommand';
@@ -8,8 +6,8 @@ import * as ServerConfigModalSubmission from './serverConfigModalSubmission';
 
 export { prepareHandlers };
 
-function prepareHandlers(app: App, servantClient: ServantClient): void {
-    EchoSlashCommand.handle(app, servantClient);
+function prepareHandlers(app: App): void {
+    EchoSlashCommand.handle(app);
     CStrikeSlashCommand.handle(app);
     ServerConfigModalSubmission.handle(app);
 }

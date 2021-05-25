@@ -1,16 +1,19 @@
-import { App, Option } from '@slack/bolt';
+import { Option } from '@slack/bolt';
 import { Do } from 'fp-ts-contrib/Do';
 import * as Console from 'fp-ts/Console';
 import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/function';
 
+import { App } from '../app';
 import { ServerConfig } from '../domain';
 import * as ServerConfigModal from '../views/serverConfigModal';
 
 export { handle };
 
 function handle(app: App): void {
-    app.view(ServerConfigModal.callbackId, async ({ ack, body }) => {
+    const { slackApp } = app;
+
+    slackApp.view(ServerConfigModal.callbackId, async ({ ack, body }) => {
         await ack();
         const { values } = body.view.state;
 

@@ -1,11 +1,11 @@
-import { App } from '@slack/bolt';
-
+import { App } from '../app';
 import * as ServerConfigModal from '../views/serverConfigModal';
 
 export { handle };
 
 function handle(app: App): void {
-    app.command('/cstrike', async ({ ack, body, client }) => {
+    const { slackApp } = app;
+    slackApp.command('/cstrike', async ({ ack, body, client }) => {
         await ack();
         const { trigger_id } = body;
         await client.views.open({

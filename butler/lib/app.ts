@@ -1,14 +1,21 @@
-import { App } from '@slack/bolt';
+import { App as SlackApp } from '@slack/bolt';
 
 import { Config } from './config';
 import { prepareHandlers } from './handlers';
 import { ServantClient } from './servant';
 
-export { create };
+export { App, create };
+
+interface App {
+    slackApp: SlackApp;
+    config: Config;
+    servantClient: ServantClient;
+}
 
 function create(config: Config): App {
-    const app = new App(config);
+    const slackApp = new SlackApp(config);
     const servantClient = new ServantClient(config.servantHost, config.servantPort);
-    prepareHandlers(app, servantClient);
+    const app = { slackApp, config, servantClient };
+    prepareHandlers(app);
     return app;
 }

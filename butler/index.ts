@@ -14,7 +14,7 @@ function main(): void {
             },
             async (config) => {
                 const app = App.create(config);
-                await app.start(config.port);
+                await app.slackApp.start(config.port);
                 Console.log('cstrike-butler is up!')();
             },
         ),
