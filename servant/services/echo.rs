@@ -3,10 +3,10 @@ use crate::protos::cstrike::{EchoRequest, EchoResponse};
 use tonic::{Request, Response, Status};
 
 #[derive(Debug, Default)]
-pub struct EchoService {}
+pub struct Service {}
 
 #[tonic::async_trait]
-impl Echo for EchoService {
+impl Echo for Service {
     async fn echo(&self, request: Request<EchoRequest>) -> Result<Response<EchoResponse>, Status> {
         println!("Got a request: {:?}", request);
 
@@ -18,6 +18,6 @@ impl Echo for EchoService {
     }
 }
 
-pub fn create() -> EchoServer<EchoService> {
-    EchoServer::new(EchoService::default())
+pub fn create() -> EchoServer<Service> {
+    EchoServer::new(Service::default())
 }
