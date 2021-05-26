@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
-OUT_DIR="./butler"
-TS_OUT_DIR="./butler"
+OUT_DIR="../butler/protos"
+TS_OUT_DIR="../butler/protos"
 IN_DIR="./protos"
 PROTOC="$(yarn bin)/grpc_tools_node_protoc"
 PROTOC_GEN_TS_PATH="$(yarn bin)/protoc-gen-ts"
 PROTOC_GEN_GRPC_PATH="$(yarn bin)/grpc_tools_node_protoc_plugin"
+
+cd $IN_DIR || exit
 
 $PROTOC \
     -I="./" \
@@ -14,4 +16,4 @@ $PROTOC \
     --js_out=import_style=commonjs:$OUT_DIR \
     --grpc_out=grpc_js:$OUT_DIR \
     --ts_out=service=grpc-node,mode=grpc-js:$TS_OUT_DIR \
-    "$IN_DIR"/*.proto
+    ./*.proto

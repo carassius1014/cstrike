@@ -1,0 +1,11 @@
+syntax = "proto3";
+import "prelude.proto";
+package cstrike;
+
+service Servant {
+    rpc getMaps(cstrike.Unit) returns (GetMapsResponse);
+}
+
+message GetMapsResponse {
+    repeated string maps = 1;
+}

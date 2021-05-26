@@ -1,5 +1,5 @@
 // package: cstrike
-// file: protos/echo.proto
+// file: echo.proto
 
 import * as jspb from "google-protobuf";
 

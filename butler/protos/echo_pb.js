@@ -1,4 +1,4 @@
-// source: protos/echo.proto
+// source: echo.proto
 /**
  * @fileoverview
  * @enhanceable
