@@ -7,4 +7,8 @@ export SLACK_CSTRIKE_CHANNEL=<your slack channel id>
 export SERVANT_PORT=<your port>
 export SERVANT_HOST=<your host>
 
+export CSTRIKE_MAPS=<path to your cstrike maps/>
+export CSTRIKE_MAPCYCLE_TXT=<path to your cstrike mapcycle.txt>
+export CSTRIKE_SERVER_CFG=<path to your cstrike server.cfg>
+
 use_nix
