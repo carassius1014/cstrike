@@ -1,7 +1,5 @@
-mod config;
-mod protos;
-mod services;
-
+use servant::config;
+use servant::services;
 use tonic::transport::Server;
 
 #[tokio::main]

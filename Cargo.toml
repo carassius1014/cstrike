@@ -5,8 +5,12 @@ authors = ["Jiyu Zhou <carassius1014@gmail.com>"]
 edition = '2018'
 repository = "https://github.com/carassius1014/cstrike/"
 
-[[bin]]
+[lib]
 name = "servant"
+path = "./servant/lib.rs"
+
+[[bin]]
+name = "server"
 path = "./servant/main.rs"
 
 [build-dependencies]
