@@ -4,11 +4,11 @@ use tonic::transport::Server;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let config = config::parse()?;
+    let address = config::address::parse()?;
 
     Server::builder()
         .add_service(services::echo::create())
-        .serve(config.address)
+        .serve(address)
         .await?;
 
     Ok(())
