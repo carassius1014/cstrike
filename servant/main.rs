@@ -8,6 +8,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     Server::builder()
         .add_service(services::echo::create())
+        .add_service(services::servant::create())
         .serve(address)
         .await?;
 
