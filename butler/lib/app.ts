@@ -1,8 +1,8 @@
 import { App as SlackApp } from '@slack/bolt';
 
 import { Config } from './config';
-import { prepareHandlers } from './handlers';
 import * as gRPC from './grpc';
+import { prepareHandlers } from './handlers';
 
 export { App, create };
 
