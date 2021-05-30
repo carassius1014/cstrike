@@ -11,26 +11,23 @@ import * as ServerConfigModal from '../views/serverConfigModal';
 export { handle };
 
 function handle(app: App): void {
-    const { slackApp } = app;
+    const { slackApp, grpcClient } = app;
 
     slackApp.view(ServerConfigModal.callbackId, async ({ ack, body }) => {
         await ack();
         const { values } = body.view.state;
 
-        const eServerConfig = parseServerConfig(values);
-
         try {
-            pipe(
-                eServerConfig,
-                E.match(
-                    (err) => {
-                        throw err;
-                    },
-                    (serverConfig) => {
-                        Console.log(serverConfig)();
-                    },
-                ),
-            );
+            const config = pipe(values, parseServerConfig, getOrThrow);
+
+            const response = await grpcClient.servantService.startServer(config);
+            const res = getOrThrow(response);
+
+            if (res.success) {
+                Console.log('Success!')();
+            } else {
+                throw new Error(res.errorMessage);
+            }
         } catch (e) {
             Console.error(e)();
         }
@@ -109,4 +106,16 @@ function parseServerConfig(values: Values): E.Either<Error, ServerConfig> {
                 maps,
             };
         });
+}
+
+function getOrThrow<A>(x: E.Either<Error, A>): A {
+    return pipe(
+        x,
+        E.match(
+            (e) => {
+                throw e;
+            },
+            (a) => a,
+        ),
+    );
 }
