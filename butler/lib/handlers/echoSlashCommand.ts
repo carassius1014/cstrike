@@ -7,10 +7,10 @@ import { App } from '../app';
 export { handle };
 
 function handle(app: App): void {
-    const { slackApp, servantClient } = app;
+    const { slackApp, grpcClient } = app;
     slackApp.command('/echo', async ({ ack, body, client }) => {
         await ack();
-        const emsg = await servantClient.echo(body.text);
+        const emsg = await grpcClient.echoService.echo(body.text);
 
         pipe(
             emsg,

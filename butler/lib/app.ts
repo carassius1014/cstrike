@@ -2,20 +2,21 @@ import { App as SlackApp } from '@slack/bolt';
 
 import { Config } from './config';
 import { prepareHandlers } from './handlers';
-import { ServantClient } from './servant';
+import * as gRPC from './grpc';
 
 export { App, create };
 
 interface App {
     slackApp: SlackApp;
     config: Config;
-    servantClient: ServantClient;
+    grpcClient: gRPC.Client;
 }
 
 function create(config: Config): App {
     const slackApp = new SlackApp(config);
-    const servantClient = new ServantClient(config.servantHost, config.servantPort);
-    const app = { slackApp, config, servantClient };
+    const { servantHost, servantPort } = config;
+    const grpcClient = gRPC.create(servantHost, servantPort);
+    const app = { slackApp, config, grpcClient };
     prepareHandlers(app);
     return app;
 }

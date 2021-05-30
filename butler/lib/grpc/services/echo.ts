@@ -2,24 +2,23 @@ import { credentials } from '@grpc/grpc-js';
 import * as E from 'fp-ts/Either';
 import { promisify } from 'util';
 
-import { EchoClient } from '../../protos/echo_grpc_pb';
-import { EchoRequest, EchoResponse } from '../../protos/echo_pb';
+import { EchoClient } from '../../../protos/echo_grpc_pb';
+import { EchoRequest, EchoResponse } from '../../../protos/echo_pb';
 
-export { Client };
+export { Service };
 
-class Client {
-    private readonly echoClient: EchoClient;
+class Service {
+    private readonly client: EchoClient;
 
-    public constructor(host: string, port: number) {
-        const url = `${host}:${port}`;
-        this.echoClient = new EchoClient(url, credentials.createInsecure());
+    public constructor(url: string) {
+        this.client = new EchoClient(url, credentials.createInsecure());
     }
 
     public async echo(message: string): Promise<E.Either<Error, string>> {
         const req = new EchoRequest();
         req.setMessage(message);
 
-        const client = this.echoClient;
+        const { client } = this;
         const res = await promisify<EchoRequest, EchoResponse | undefined>(client.echo.bind(client))(req);
         const responseMsg = res?.getMessage();
 
