@@ -1,5 +1,5 @@
 use crate::protos::cstrike::servant_server::{Servant, ServantServer};
-use crate::protos::cstrike::{GetMapsResponse, Unit};
+use crate::protos::cstrike::{GetMapsResponse, StartServerRequest, StartServerResponse, Unit};
 use crate::use_cases::collect_maps;
 use tonic::{Code, Request, Response, Status};
 
@@ -12,6 +12,20 @@ impl Servant for Service {
         let maps = get_or_else(collect_maps::run())?;
 
         let response = GetMapsResponse { maps };
+
+        Ok(Response::new(response))
+    }
+
+    async fn start_server(
+        &self,
+        request: Request<StartServerRequest>,
+    ) -> Result<Response<StartServerResponse>, Status> {
+        println!("Got a request: {:?}", request);
+
+        let response = StartServerResponse {
+            success: true,
+            error_message: String::from("nothing"),
+        };
 
         Ok(Response::new(response))
     }
