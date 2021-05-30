@@ -4,8 +4,21 @@ package cstrike;
 
 service Servant {
     rpc getMaps(cstrike.Unit) returns (GetMapsResponse);
+    rpc startServer(StartServerRequest) returns (StartServerResponse);
 }
 
 message GetMapsResponse {
     repeated string maps = 1;
+}
+
+message StartServerRequest {
+    string name = 1;
+    string password = 2;
+    repeated string players = 3;
+    repeated string maps = 4;
+}
+
+message StartServerResponse {
+    bool success = 1;
+    string error_message = 2;
 }
