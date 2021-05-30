@@ -63,7 +63,7 @@ servant.build:
 	cargo build
 
 servant.exec:
-	cargo run --bin servant
+	cargo run --bin server
 
 servant.check:
 	cargo check
