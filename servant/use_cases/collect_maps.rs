@@ -1,3 +1,4 @@
+use super::error::Error;
 use crate::config::path_to_cstrike_maps;
 use crate::config::path_to_czero_maps;
 use std::collections::HashSet;
@@ -5,17 +6,6 @@ use std::ffi::OsStr;
 use std::fs;
 use std::os::unix::ffi::OsStrExt;
 use std::path::PathBuf;
-
-pub struct Error {
-    pub message: String,
-}
-
-impl Error {
-    fn new(path: &PathBuf) -> Self {
-        let message = format!("Failed to read dir: {:?}", path);
-        Error { message }
-    }
-}
 
 pub fn run() -> Result<Vec<String>, Error> {
     let path_to_cstrike_maps = path_to_cstrike_maps::parse().map_err(|e| Error {
@@ -64,5 +54,6 @@ fn collect_stems(path: &PathBuf) -> Result<HashSet<String>, Error> {
 }
 
 fn get_or_else<T, E>(value: Result<T, E>, path: &PathBuf) -> Result<T, Error> {
-    value.map_err(|_| Error::new(path))
+    let message = format!("Failed to read dir: {:?}", path);
+    value.map_err(|_| Error::new(&message))
 }

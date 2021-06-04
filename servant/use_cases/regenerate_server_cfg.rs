@@ -1,19 +1,8 @@
+use super::error::Error;
 use crate::config::path_to_server_cfg;
 use crate::domain_objects::server_config::ServerConfig;
 use std::path;
 use std::{fs, io::Write};
-
-pub struct Error {
-    pub message: String,
-}
-
-impl Error {
-    fn new(s: &str) -> Self {
-        Error {
-            message: String::from(s),
-        }
-    }
-}
 
 pub fn run(config: &ServerConfig) -> Result<(), Error> {
     let path = path_to_server_cfg::parse().map_err(|e| Error::new(e.to_string().as_ref()))?;
