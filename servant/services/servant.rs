@@ -2,7 +2,9 @@ use crate::domain_objects::server_config::ServerConfig;
 use crate::protos::cstrike::servant_server::{Servant, ServantServer};
 use crate::protos::cstrike::{GetMapsResponse, StartServerRequest, StartServerResponse, Unit};
 use crate::use_cases::collect_maps;
+use crate::use_cases::regenerate_mapcycle_txt;
 use crate::use_cases::regenerate_server_cfg;
+use nonempty::NonEmpty;
 use tonic::{Code, Request, Response, Status};
 
 #[derive(Debug, Default)]
@@ -28,22 +30,25 @@ impl Servant for Service {
             name,
             password,
             players,
-            maps: _,
+            maps,
         } = request.into_inner();
 
-        let conifg = ServerConfig {
+        let config = ServerConfig {
             hostname: name,
             sv_password: password,
             bot_quota: 10 - players.len() as u8,
             ..ServerConfig::default()
         };
 
-        let res = regenerate_server_cfg::run(&conifg);
+        let maps = NonEmpty::from_vec(maps).unwrap();
+
+        get_or_throw(regenerate_server_cfg::run(&config))?;
+        let res = regenerate_mapcycle_txt::run(maps.tail);
 
         let response = match res {
             Ok(_) => StartServerResponse {
                 success: true,
-                error_message: String::from("nothing"),
+                error_message: String::from("nothing wrong"),
             },
             Err(why) => StartServerResponse {
                 success: false,
