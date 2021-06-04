@@ -24,7 +24,12 @@ impl Servant for Service {
     ) -> Result<Response<StartServerResponse>, Status> {
         println!("Got a request: {:?}", request);
 
-        let StartServerRequest { name, password, players, maps: _ } = request.into_inner();
+        let StartServerRequest {
+            name,
+            password,
+            players,
+            maps: _,
+        } = request.into_inner();
 
         let conifg = ServerConfig {
             hostname: name,
