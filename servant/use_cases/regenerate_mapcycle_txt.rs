@@ -4,7 +4,7 @@ use std::fs;
 use std::io::Write;
 use std::path;
 
-pub fn run(maps: Vec<String>) -> Result<(), Error> {
+pub fn run(maps: &Vec<String>) -> Result<(), Error> {
     let path = get_or_throw(path_to_map_cycle_txt::parse())?;
 
     let path_exists = path::Path::new(&path).exists();

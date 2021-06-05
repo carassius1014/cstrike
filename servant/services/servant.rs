@@ -43,7 +43,7 @@ impl Servant for Service {
         let maps = NonEmpty::from_vec(maps).unwrap();
 
         get_or_throw(regenerate_server_cfg::run(&config))?;
-        let res = regenerate_mapcycle_txt::run(maps.tail);
+        let res = regenerate_mapcycle_txt::run(&maps.tail);
 
         let response = match res {
             Ok(_) => StartServerResponse {
