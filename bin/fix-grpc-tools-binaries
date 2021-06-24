@@ -1,9 +1,0 @@
-#!/usr/bin/env sh
-
-readonly GRPC_TOOLS_BIN=./node_modules/grpc-tools/bin;
-
-for exe in "grpc_node_plugin" "protoc"
-do
-  rm -f $GRPC_TOOLS_BIN/$exe
-  ln -s "$(which $exe)" $GRPC_TOOLS_BIN/$exe
-done
