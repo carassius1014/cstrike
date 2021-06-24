@@ -1,26 +1,26 @@
 {
-  "niv": {
-    "branch": "master",
-    "description": "Easy dependency management for Nix projects",
-    "homepage": "https://github.com/nmattia/niv",
-    "owner": "nmattia",
-    "repo": "niv",
-    "rev": "94080ae8286024820c570a2a24ed7c36d7ad04a9",
-    "sha256": "0wlk52zwlrq727x3z1vg9d9qq4zw62ab5jzg4068iqb6hyb0cr0w",
-    "type": "tarball",
-    "url": "https://github.com/nmattia/niv/archive/94080ae8286024820c570a2a24ed7c36d7ad04a9.tar.gz",
-    "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-  },
-  "nixpkgs": {
-    "branch": "nixpkgs-unstable",
-    "description": "Nix Packages collection",
-    "homepage": "",
-    "owner": "NixOS",
-    "repo": "nixpkgs",
-    "rev": "72948af15bf52f9111a42b3e9866b9c2d426ece9",
-    "sha256": "15v1jryfzx4qfplry7sa64d8d49k2mic6ba6773jgpdph3j0pzmx",
-    "type": "tarball",
-    "url": "https://github.com/NixOS/nixpkgs/archive/72948af15bf52f9111a42b3e9866b9c2d426ece9.tar.gz",
-    "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-  }
+    "niv": {
+        "branch": "master",
+        "description": "Easy dependency management for Nix projects",
+        "homepage": "https://github.com/nmattia/niv",
+        "owner": "nmattia",
+        "repo": "niv",
+        "rev": "94080ae8286024820c570a2a24ed7c36d7ad04a9",
+        "sha256": "0wlk52zwlrq727x3z1vg9d9qq4zw62ab5jzg4068iqb6hyb0cr0w",
+        "type": "tarball",
+        "url": "https://github.com/nmattia/niv/archive/94080ae8286024820c570a2a24ed7c36d7ad04a9.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs": {
+        "branch": "nixos-21.05",
+        "description": "Nix Packages collection",
+        "homepage": "",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0b8b127125e5271f5c8636680b6fe274844aaa9d",
+        "sha256": "1rjb1q28ivaf20aqj3v60kzjyi5lqb3krag0k8wwjqch45ik2f86",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/0b8b127125e5271f5c8636680b6fe274844aaa9d.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
 }
