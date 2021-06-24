@@ -2,3 +2,4 @@ dist/
 node_modules/
 target/
 butler/protos/
+nix/sources.json
