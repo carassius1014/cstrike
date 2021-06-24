@@ -1,0 +1,22 @@
+name: cstrike-maid
+
+default-extensions: !include ./default-extensions.yaml
+
+library:
+  source-dirs:
+    - maid/lib
+  dependencies:
+    - base
+
+executables:
+  maid:
+    source-dirs:
+      - maid/exe
+    main: Main.hs
+    dependencies:
+      - base
+      - cstrike-maid
+    when:
+      - condition: false
+        other-modules:
+          - Paths_cstrike_maid

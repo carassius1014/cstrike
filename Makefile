@@ -1,3 +1,5 @@
+stack-build := stack build --fast
+
 all:
 
 setup:
@@ -14,6 +16,7 @@ format:
 	git ls-files "*.rs" | xargs rustfmt
 	cargo tomlfmt
 	git ls-files "*.nix" | xargs nixfmt
+	git ls-files "*.hs" | xargs brittany --config-file ./brittany.yaml --write-mode=inplace
 
 cleanup:
 	rm -rf node_modules/ dist/ target/
@@ -76,6 +79,23 @@ servant.lint:
 
 servant.lint.watch:
 	cargo watch -x clippy
+
+########
+# maid #
+########
+
+maid.build:
+	$(stack-build)
+
+maid.build.watch:
+	$(stack-build) --file-watch
+
+maid.exec:
+	$(stack-build) && stack exec -- maid
+
+.PHONY: maid.repl
+maid.repl:
+	stack ghci
 
 protobuf.codegen:
 	bin/compile-protos

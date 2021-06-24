@@ -12,6 +12,7 @@ in pkgs.mkShell {
     pkgs.cargo-watch
     pkgs.grpcurl
     pkgs.grpc-tools
+    pkgs.haskell.packages.ghc8104.brittany
     pkgs.heroku
     pkgs.niv
     pkgs.nixfmt

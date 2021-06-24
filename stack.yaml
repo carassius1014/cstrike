@@ -1,0 +1,26 @@
+resolver: lts-18.0
+
+ghc-options:
+  $targets: -O2
+    -Wall
+    -Wcompat
+    -Werror
+    -Wmissing-deriving-strategies
+    -Wwarn=name-shadowing
+    -rtsopts
+    -threaded
+    -with-rtsopts=-N
+
+packages:
+  - .
+
+allow-newer: true
+
+extra-include-dirs:
+  - ~/.nix-profile/include
+
+nix:
+  enable: true
+  add-gc-roots: true
+  pure: false
+  shell-file: stack.nix

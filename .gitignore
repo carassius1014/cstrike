@@ -5,6 +5,10 @@ dist/
 # Rust
 target/
 
+# Haskell
+.stack-work/
+*.cabal
+
 # private
 .envrc
 local/
