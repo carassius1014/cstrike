@@ -7,6 +7,10 @@ library:
     - maid/lib
   dependencies:
     - base
+    - directory
+    - optparse-generic
+    - process
+    - relude
 
 executables:
   maid:
