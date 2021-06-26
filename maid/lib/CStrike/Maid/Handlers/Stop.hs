@@ -19,7 +19,7 @@ handle :: HandlerM ()
 handle = do
     Config {..}   <- ask
     pidFileExists <- liftIO $ doesFileExist pidFile
-    when (not pidFileExists) $ exitWith (ExitFailure 42)
+    unless pidFileExists $ exitWith (ExitFailure 88)
 
     void . liftIO $ createProcess $ shell "pkill -f hlds_*"
     liftIO $ removeFile pidFile

@@ -4,17 +4,23 @@ module CStrike.Maid.Handlers.Start
 
 import           CStrike.Maid.Prelude
 
+import "directory" System.Directory             ( doesFileExist )
+import "base"    System.Exit                    ( ExitCode(..) )
 import "process" System.Process                 ( CreateProcess(..)
                                                 , createProcess
                                                 , proc
                                                 )
+
 
 import           CStrike.Maid.Config            ( Config(..) )
 import           CStrike.Maid.Handlers.Types    ( HandlerM )
 
 handle :: String -> HandlerM ()
 handle startMap = do
-    Config {..} <- ask
+    Config {..}   <- ask
+    pidFileExists <- liftIO $ doesFileExist pidFile
+    when pidFileExists $ exitWith (ExitFailure 99)
+
     void . liftIO $ createProcess (proc
                                       "./hlds_run"
                                       [ "run"
