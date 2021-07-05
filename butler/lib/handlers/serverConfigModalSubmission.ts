@@ -6,14 +6,16 @@ import { pipe } from 'fp-ts/function';
 
 import { App } from '../app';
 import { ServerConfig } from '../domain';
+import * as ErrorMessageBlocks from '../views/errorMessageBlocks';
 import * as ServerConfigModal from '../views/serverConfigModal';
 
 export { handle };
 
 function handle(app: App): void {
-    const { slackApp, grpcClient } = app;
+    const { slackApp, grpcClient, config } = app;
+    const { cstrikeChannel } = config;
 
-    slackApp.view(ServerConfigModal.callbackId, async ({ ack, body }) => {
+    slackApp.view(ServerConfigModal.callbackId, async ({ ack, body, client }) => {
         await ack();
         const { values } = body.view.state;
 
@@ -29,7 +31,10 @@ function handle(app: App): void {
                 throw new Error(res.errorMessage);
             }
         } catch (e) {
-            Console.error(e)();
+            await client.chat.postMessage({
+                channel: cstrikeChannel,
+                blocks: ErrorMessageBlocks.buildView(JSON.stringify(e)),
+            });
         }
     });
 }
