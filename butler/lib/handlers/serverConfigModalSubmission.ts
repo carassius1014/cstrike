@@ -28,13 +28,13 @@ function handle(app: App): void {
             if (res.success) {
                 Console.log('Success!')();
             } else {
-                throw new Error(res.errorMessage);
+                await client.chat.postMessage({
+                    channel: cstrikeChannel,
+                    blocks: ErrorMessageBlocks.buildView({ why: res.errorMessage }),
+                });
             }
         } catch (e) {
-            await client.chat.postMessage({
-                channel: cstrikeChannel,
-                blocks: ErrorMessageBlocks.buildView(JSON.stringify(e)),
-            });
+            Console.log(e)();
         }
     });
 }
