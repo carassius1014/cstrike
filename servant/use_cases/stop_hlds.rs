@@ -2,7 +2,7 @@ use super::error::Error;
 use std::process::Command;
 
 pub fn run() -> Result<(), Error> {
-    get_or_throw(Command::new("stack").args(&["run", "--", "stop"]).spawn())?;
+    get_or_throw(Command::new("stack").args(&["run", "--", "stop"]).output())?;
     Ok(())
 }
 

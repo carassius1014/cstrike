@@ -5,7 +5,7 @@ pub fn run(start_map: &String) -> Result<(), Error> {
     get_or_throw(
         Command::new("stack")
             .args(&["run", "--", "start", "--startMap", start_map])
-            .spawn(),
+            .output()
     )?;
     Ok(())
 }
