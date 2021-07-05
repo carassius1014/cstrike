@@ -6,6 +6,7 @@ import * as PlainText from './plainText';
 import * as PlainTextInput from './plainTextInput';
 
 export {
+    Input,
     buildView,
     callbackId,
     nameInputBlockId,
@@ -28,7 +29,11 @@ const playersSelectActionId = 'select-Players';
 const mapsSelectBlockId = 'block-Maps_Select';
 const mapsSelectActionId = 'select-Maps';
 
-function buildView(maps: string[]): View {
+interface Input {
+    maps: string[];
+}
+
+function buildView({ maps }: Input): View {
     return {
         type: 'modal' as const,
         callback_id: callbackId,

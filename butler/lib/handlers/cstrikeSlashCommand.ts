@@ -25,7 +25,7 @@ function handle(app: App): void {
                 async (maps) => {
                     await client.views.open({
                         trigger_id,
-                        view: ServerConfigModal.buildView(maps),
+                        view: ServerConfigModal.buildView({ maps }),
                     });
                 },
             ),
