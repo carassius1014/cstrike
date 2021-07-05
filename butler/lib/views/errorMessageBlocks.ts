@@ -8,7 +8,7 @@ export { buildView };
 
 function buildView(why: string): Array<Block | KnownBlock> {
     return [
-        Header.buildView({ text: '*Something went wrong* :cry:' }),
+        Header.buildView({ text: 'Something went wrong :cry:' }),
         Divider.buildView(),
         { type: 'section', text: MarkdownText.buildView({ text: why }) },
     ];
