@@ -2,12 +2,17 @@ use super::error::Error;
 use std::process::Command;
 
 pub fn run(start_map: &String) -> Result<(), Error> {
-    get_or_throw(
+    let status = get_or_throw(
         Command::new("stack")
             .args(&["run", "--", "start", "--startMap", start_map])
-            .output()
+            .status(),
     )?;
-    Ok(())
+
+    if status.success() {
+        Ok(())
+    } else {
+        Err(Error::new(status.to_string().as_str()))
+    }
 }
 
 fn get_or_throw<A, E: std::error::Error>(value: Result<A, E>) -> Result<A, Error> {
