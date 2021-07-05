@@ -86,3 +86,27 @@ export namespace StartServerResponse {
   }
 }
 
+export class StopServerResponse extends jspb.Message {
+  getSuccess(): boolean;
+  setSuccess(value: boolean): void;
+
+  getErrorMessage(): string;
+  setErrorMessage(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): StopServerResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: StopServerResponse): StopServerResponse.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: StopServerResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): StopServerResponse;
+  static deserializeBinaryFromReader(message: StopServerResponse, reader: jspb.BinaryReader): StopServerResponse;
+}
+
+export namespace StopServerResponse {
+  export type AsObject = {
+    success: boolean,
+    errorMessage: string,
+  }
+}
+

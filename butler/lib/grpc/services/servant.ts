@@ -5,7 +5,12 @@ import { promisify } from 'util';
 
 import { Unit } from '../../../protos/prelude_pb';
 import { ServantClient } from '../../../protos/servant_grpc_pb';
-import { GetMapsResponse, StartServerRequest, StartServerResponse } from '../../../protos/servant_pb';
+import {
+    GetMapsResponse,
+    StartServerRequest,
+    StartServerResponse,
+    StopServerResponse,
+} from '../../../protos/servant_pb';
 import { ServerConfig } from '../../domain';
 
 export { Service };
@@ -41,6 +46,23 @@ class Service {
         const res = await promisify<StartServerRequest, StartServerResponse | undefined>(
             client.startServer.bind(client),
         )(req);
+        const nsuccess = res?.getSuccess();
+        const nerrorMessage = res?.getErrorMessage();
+
+        const mkFieldFailure = (field: string): Error => Error(`failed to fetch field: ${field}`);
+        return Do(E.Monad)
+            .bind('success', E.fromNullable(mkFieldFailure('success'))(nsuccess))
+            .bind('errorMessage', E.fromNullable(mkFieldFailure('errorMessage'))(nerrorMessage))
+            .return(({ success, errorMessage }) => {
+                return { success, errorMessage };
+            });
+    }
+
+    public async stopServer(): Promise<E.Either<Error, { success: boolean; errorMessage: string }>> {
+        const req = new Unit();
+
+        const { client } = this;
+        const res = await promisify<Unit, StopServerResponse | undefined>(client.stopServer.bind(client))(req);
         const nsuccess = res?.getSuccess();
         const nerrorMessage = res?.getErrorMessage();
 

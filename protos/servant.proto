@@ -5,6 +5,7 @@ package cstrike;
 service Servant {
     rpc getMaps(cstrike.Unit) returns (GetMapsResponse);
     rpc startServer(StartServerRequest) returns (StartServerResponse);
+    rpc stopServer(cstrike.Unit) returns (StopServerResponse);
 }
 
 message GetMapsResponse {
@@ -19,6 +20,11 @@ message StartServerRequest {
 }
 
 message StartServerResponse {
+    bool success = 1;
+    string error_message = 2;
+}
+
+message StopServerResponse {
     bool success = 1;
     string error_message = 2;
 }

@@ -38,6 +38,17 @@ function deserialize_cstrike_StartServerResponse(buffer_arg) {
   return servant_pb.StartServerResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_cstrike_StopServerResponse(arg) {
+  if (!(arg instanceof servant_pb.StopServerResponse)) {
+    throw new Error('Expected argument of type cstrike.StopServerResponse');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_cstrike_StopServerResponse(buffer_arg) {
+  return servant_pb.StopServerResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_cstrike_Unit(arg) {
   if (!(arg instanceof prelude_pb.Unit)) {
     throw new Error('Expected argument of type cstrike.Unit');
@@ -72,6 +83,17 @@ var ServantService = exports.ServantService = {
     requestDeserialize: deserialize_cstrike_StartServerRequest,
     responseSerialize: serialize_cstrike_StartServerResponse,
     responseDeserialize: deserialize_cstrike_StartServerResponse,
+  },
+  stopServer: {
+    path: '/cstrike.Servant/stopServer',
+    requestStream: false,
+    responseStream: false,
+    requestType: prelude_pb.Unit,
+    responseType: servant_pb.StopServerResponse,
+    requestSerialize: serialize_cstrike_Unit,
+    requestDeserialize: deserialize_cstrike_Unit,
+    responseSerialize: serialize_cstrike_StopServerResponse,
+    responseDeserialize: deserialize_cstrike_StopServerResponse,
   },
 };
 
