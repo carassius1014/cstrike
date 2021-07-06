@@ -1,11 +1,11 @@
-import { InputBlock } from '@slack/types';
+import { InputBlock, PlainTextElement } from '@slack/types';
 
 import * as PlainText from './plainText';
 
 export { Input, Option, buildView };
 
 interface Option {
-    text: PlainText.Type;
+    text: PlainTextElement;
     value: string;
 }
 

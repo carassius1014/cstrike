@@ -1,11 +1,6 @@
 import { PlainTextElement } from '@slack/types';
 
-export { Type, Input, buildView };
-
-interface Type {
-    type: 'plain_text';
-    text: string;
-}
+export { Input, buildView };
 
 interface Input {
     text: string;
