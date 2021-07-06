@@ -4,10 +4,12 @@ use std::process::Command;
 pub fn run() -> Result<(), Error> {
     let status = get_or_throw(Command::new("stack").args(&["run", "--", "stop"]).status())?;
 
-    if status.success() {
-        Ok(())
-    } else {
-        Err(Error::new(status.to_string().as_str()))
+    match status.code() {
+        Some(88) => Err(Error::new(
+            "Pid file doesn't exist. Maybe server is not running.",
+        )),
+        Some(_) => Err(Error::new("Unknown error")),
+        None => Ok(()),
     }
 }
 

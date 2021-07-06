@@ -8,10 +8,12 @@ pub fn run(start_map: &String) -> Result<(), Error> {
             .status(),
     )?;
 
-    if status.success() {
-        Ok(())
-    } else {
-        Err(Error::new(status.to_string().as_str()))
+    match status.code() {
+        Some(99) => Err(Error::new(
+            "Pid file already exists. Maybe server is already started.",
+        )),
+        Some(_) => Err(Error::new("Unknown error")),
+        None => Ok(()),
     }
 }
 
