@@ -8,6 +8,7 @@ import { App } from '../app';
 import { ServerConfig } from '../domain';
 import * as ErrorMessageBlocks from '../views/errorMessageBlocks';
 import * as ServerConfigModal from '../views/serverConfigModal';
+import * as ServerStartedSuccessfullyMessageBlocks from '../views/serverStartedSuccessfullyMessageBlocks';
 
 export { handle };
 
@@ -26,7 +27,10 @@ function handle(app: App): void {
             const res = getOrThrow(response);
 
             if (res.success) {
-                Console.log('Success!')();
+                await client.chat.postMessage({
+                    channel: cstrikeChannel,
+                    blocks: ServerStartedSuccessfullyMessageBlocks.buildView(),
+                });
             } else {
                 await client.chat.postMessage({
                     channel: cstrikeChannel,
@@ -34,7 +38,7 @@ function handle(app: App): void {
                 });
             }
         } catch (e) {
-            Console.log(e)();
+            Console.error(e)();
         }
     });
 }
