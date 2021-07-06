@@ -18,6 +18,7 @@
     "eslint-plugin-import": "^2.20.0",
     "eslint-plugin-node": "11",
     "grpc-tools": "^1.11.1",
+    "pm2": "^5.1.0",
     "prettier": "^2.3.0",
     "ts-loader": "^9.1.2",
     "ts-protoc-gen": "^0.15.0",
