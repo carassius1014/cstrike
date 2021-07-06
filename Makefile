@@ -4,7 +4,6 @@ all:
 
 setup:
 	yarn
-	bin/fix-grpc-tools-binaries
 
 ##########
 # common #
