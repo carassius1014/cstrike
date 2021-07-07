@@ -7,16 +7,23 @@ import * as Header from './header';
 import * as MrkdwnText from './mrkdwnText';
 import * as PlainText from './plainText';
 
-export { buildView, serverStopActionId };
+export { Input, buildView, serverStopActionId };
 
 const serverStopActionId = 'button-ServerStartedSuccessfullyMessageBlocks_Stop_Server';
 
-function buildView(): Array<Block | KnownBlock> {
+interface Input {
+    users: string[];
+    maps: string[];
+}
+
+function buildView({ users, maps }: Input): Array<Block | KnownBlock> {
     return [
         Header.buildView({ text: 'HLDS server is running :v:' }),
         Divider.buildView(),
+        { type: 'section', text: MrkdwnText.buildView({ text: users.map(mention).join(' ') }) },
+        { type: 'section', text: MrkdwnText.buildView({ text: list(maps) }) },
         {
-            type: 'section' as const,
+            type: 'section',
             text: MrkdwnText.buildView({ text: 'To stop the running hlds server, click: ' }),
             accessory: Button.buildView({
                 text: PlainText.buildView({ text: 'Stop' }),
@@ -31,4 +38,16 @@ function buildView(): Array<Block | KnownBlock> {
             }),
         },
     ];
+}
+
+function mention(userID: string): string {
+    return `<@${userID}>`;
+}
+
+function itemize(item: string): string {
+    return `- ${item}`;
+}
+
+function list(xs: string[]): string {
+    return xs.map(itemize).join('\n');
 }

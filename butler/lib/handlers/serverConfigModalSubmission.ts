@@ -29,7 +29,10 @@ function handle(app: App): void {
             if (res.success) {
                 await client.chat.postMessage({
                     channel: cstrikeChannel,
-                    blocks: ServerStartedSuccessfullyMessageBlocks.buildView(),
+                    blocks: ServerStartedSuccessfullyMessageBlocks.buildView({
+                        users: config.players,
+                        maps: config.maps,
+                    }),
                 });
             } else {
                 await client.chat.postMessage({
