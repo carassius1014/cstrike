@@ -17,7 +17,11 @@ function buildView(): Array<Block | KnownBlock> {
         {
             type: 'section' as const,
             text: MrkdwnText.buildView({ text: 'To stop the running hlds server, click: ' }),
-            accessory: Button.buildView({ text: PlainText.buildView({ text: 'Stop' }), action_id: serverStopActionId }),
+            accessory: Button.buildView({
+                text: PlainText.buildView({ text: 'Stop' }),
+                action_id: serverStopActionId,
+                style: 'danger',
+            }),
         },
     ];
 }
