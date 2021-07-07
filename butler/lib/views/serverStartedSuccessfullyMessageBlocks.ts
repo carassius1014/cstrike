@@ -1,6 +1,7 @@
 import { Block, KnownBlock } from '@slack/bolt';
 
 import * as Button from './button';
+import * as Confirm from './confirm';
 import * as Divider from './divider';
 import * as Header from './header';
 import * as MrkdwnText from './mrkdwnText';
@@ -21,6 +22,12 @@ function buildView(): Array<Block | KnownBlock> {
                 text: PlainText.buildView({ text: 'Stop' }),
                 action_id: serverStopActionId,
                 style: 'danger',
+                confirm: Confirm.buildView({
+                    title: 'Are you sure?',
+                    body: 'You are about to stop the running HLDS server.',
+                    confirmText: "Yes, I'm done playing!",
+                    denyText: "No, I've changed my mind!",
+                }),
             }),
         },
     ];
