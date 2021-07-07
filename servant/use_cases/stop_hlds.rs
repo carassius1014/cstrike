@@ -8,8 +8,7 @@ pub fn run() -> Result<(), Error> {
         Some(88) => Err(Error::new(
             "Pid file doesn't exist. Maybe server is not running.",
         )),
-        Some(_) => Err(Error::new("Unknown error")),
-        None => Ok(()),
+        _ => Ok(()),
     }
 }
 
