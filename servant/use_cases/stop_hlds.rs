@@ -5,8 +5,14 @@ pub fn run() -> Result<(), Error> {
     let status = get_or_throw(Command::new("stack").args(&["run", "--", "stop"]).status())?;
 
     match status.code() {
-        Some(88) => Err(Error::new(
-            "Pid file doesn't exist. Maybe server is not running.",
+        Some(22) => Err(Error::new(
+            "Unknown docker error",
+        )),
+        Some(44) => Err(Error::new(
+            "Container is not running"
+        )),
+        Some(55) => Err(Error::new(
+            "Failed to stop container"
         )),
         _ => Ok(()),
     }

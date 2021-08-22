@@ -1,16 +1,22 @@
 use super::error::Error;
 use std::process::Command;
 
-pub fn run(start_map: &String) -> Result<(), Error> {
+pub fn run() -> Result<(), Error> {
     let status = get_or_throw(
         Command::new("stack")
-            .args(&["run", "--", "start", "--startMap", start_map])
+            .args(&["run", "--", "start"])
             .status(),
     )?;
 
     match status.code() {
-        Some(99) => Err(Error::new(
-            "Pid file already exists. Maybe server is running.",
+        Some(11) => Err(Error::new(
+            "Container is already started",
+        )),
+        Some(22) => Err(Error::new(
+            "Unknown docker error",
+        )),
+        Some(44) => Err(Error::new(
+            "Failed to start container",
         )),
         _ => Ok(()),
     }

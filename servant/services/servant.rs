@@ -6,6 +6,7 @@ use crate::protos::cstrike::{
 use crate::use_cases::collect_maps;
 use crate::use_cases::regenerate_mapcycle_txt;
 use crate::use_cases::regenerate_server_cfg;
+use crate::use_cases::regenerate_start_map;
 use crate::use_cases::start_hlds;
 use crate::use_cases::stop_hlds;
 use nonempty::NonEmpty;
@@ -47,9 +48,10 @@ impl Servant for Service {
         let maps = NonEmpty::from_vec(maps).unwrap();
 
         let run_use_case = || {
-            regenerate_server_cfg::run(&config)?;
             regenerate_mapcycle_txt::run(&maps.tail)?;
-            start_hlds::run(&maps.head)
+            regenerate_server_cfg::run(&config)?;
+            regenerate_start_map::run(&maps.head)?;
+            start_hlds::run()
         };
 
         let response = match run_use_case() {
