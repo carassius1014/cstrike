@@ -1,19 +1,20 @@
 import           CStrike.Maid.Prelude
 
+import qualified CStrike.Maid.App              as App
+                                                ( make )
 import           CStrike.Maid.Command           ( Command(..) )
 import qualified CStrike.Maid.Command          as Command
                                                 ( parse )
-import qualified CStrike.Maid.Config           as Config
-                                                ( parse )
 import qualified CStrike.Maid.Handlers.Start   as Start
-                                                ( handle )
+                                                ( run )
 import qualified CStrike.Maid.Handlers.Stop    as Stop
-                                                ( handle )
+                                                ( run )
+import           CStrike.Maid.Handlers.Types    ( runHandler )
 
 main :: IO ()
 main = do
-    config  <- Config.parse
     command <- Command.parse
-    flip runReaderT config $ case command of
-        Start startMap -> Start.handle startMap
-        Stop           -> Stop.handle
+    app     <- App.make
+    runHandler app $ case command of
+        Start -> Start.run
+        Stop  -> Stop.run

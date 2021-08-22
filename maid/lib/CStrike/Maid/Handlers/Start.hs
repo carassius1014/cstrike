@@ -1,42 +1,34 @@
 module CStrike.Maid.Handlers.Start
-    ( handle
+    ( run
     ) where
 
 import           CStrike.Maid.Prelude
 
-import "directory" System.Directory             ( doesFileExist )
-import "base"    System.Exit                    ( ExitCode(..) )
-import "process" System.Process                 ( CreateProcess(..)
-                                                , createProcess
-                                                , proc
+import "docker"  Docker.Client                  ( Container(..)
+                                                , ContainerID
+                                                , defaultListOpts
+                                                , defaultStartOpts
+                                                , listContainers
+                                                , startContainer
                                                 )
 
+import           CStrike.Maid.Handlers.Types    ( Handler
+                                                , exitWithCode
+                                                , getOrExit
+                                                , getSettings
+                                                , runDocker
+                                                )
+import           CStrike.Maid.Settings          ( Settings(..) )
 
-import           CStrike.Maid.Config            ( Config(..) )
-import           CStrike.Maid.Handlers.Types    ( HandlerM )
-
-handle :: String -> HandlerM ()
-handle startMap = do
-    Config {..}   <- ask
-    pidFileExists <- liftIO $ doesFileExist pidFile
-    when pidFileExists $ exitWith (ExitFailure 99)
-
-    void . liftIO $ createProcess (proc
-                                      "./hlds_run"
-                                      [ "run"
-                                      , "-game"
-                                      , "czero"
-                                      , "+maxplayers"
-                                      , "16"
-                                      , "+map"
-                                      , startMap
-                                      , "+mapcyclefile"
-                                      , "mapcycle.txt"
-                                      , "--pidfile"
-                                      , pidFile
-                                      , "-autoupdate"
-                                      , "-debug"
-                                      ]
-                                  )
-        { cwd = Just hldsRoot
-        }
+run :: Handler ()
+run = do
+    Settings { containerID } <- getSettings
+    running                  <- isContainerRunning containerID
+    when running $ exitWithCode 11
+    (runDocker $ startContainer defaultStartOpts containerID) `getOrExit` 33
+  where
+    isContainerRunning :: ContainerID -> Handler Bool
+    isContainerRunning hldsContainerID = do
+        containers <- (runDocker $ listContainers defaultListOpts) `getOrExit` 22
+        let runningContainer = find (\Container { containerId } -> containerId == hldsContainerID) containers
+        pure $ isJust runningContainer

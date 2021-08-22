@@ -12,7 +12,7 @@ import "optparse-generic" Options.Generic       ( ParseRecord
                                                 )
 
 data Command
-    = Start { startMap :: String }
+    = Start
     | Stop
     deriving stock Generic
     deriving stock Show

@@ -1,25 +1,34 @@
 module CStrike.Maid.Handlers.Stop
-    ( handle
+    ( run
     ) where
 
 import           CStrike.Maid.Prelude
 
-import "directory" System.Directory             ( doesFileExist
-                                                , removeFile
+import "docker"  Docker.Client                  ( Container(..)
+                                                , ContainerID
+                                                , Timeout(DefaultTimeout)
+                                                , defaultListOpts
+                                                , listContainers
+                                                , stopContainer
                                                 )
-import "base"    System.Exit                    ( ExitCode(..) )
-import "process" System.Process                 ( createProcess
-                                                , shell
+
+import           CStrike.Maid.Handlers.Types    ( Handler
+                                                , exitWithCode
+                                                , getOrExit
+                                                , getSettings
+                                                , runDocker
                                                 )
+import           CStrike.Maid.Settings          ( Settings(..) )
 
-import           CStrike.Maid.Config            ( Config(..) )
-import           CStrike.Maid.Handlers.Types    ( HandlerM )
-
-handle :: HandlerM ()
-handle = do
-    Config {..}   <- ask
-    pidFileExists <- liftIO $ doesFileExist pidFile
-    unless pidFileExists $ exitWith (ExitFailure 88)
-
-    void . liftIO $ createProcess $ shell "pkill -f hlds_*"
-    liftIO $ removeFile pidFile
+run :: Handler ()
+run = do
+    Settings { containerID } <- getSettings
+    running                  <- isContainerRunning containerID
+    unless running $ exitWithCode 44
+    (runDocker $ stopContainer DefaultTimeout containerID) `getOrExit` 55
+  where
+    isContainerRunning :: ContainerID -> Handler Bool
+    isContainerRunning hldsContainerID = do
+        containers <- (runDocker $ listContainers defaultListOpts) `getOrExit` 22
+        let runningContainer = find (\Container { containerId } -> containerId == hldsContainerID) containers
+        pure $ isJust runningContainer

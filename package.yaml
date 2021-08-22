@@ -7,10 +7,11 @@ library:
     - maid/lib
   dependencies:
     - base
-    - directory
+    - docker
+    - http-client
     - optparse-generic
-    - process
     - relude
+    - text
 
 executables:
   maid:
