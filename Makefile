@@ -98,3 +98,28 @@ maid.repl:
 
 protobuf.codegen:
 	bin/compile-protos
+
+########
+# hlds #
+########
+
+hlds.create:
+	docker create \
+		--name hlds \
+		-p 27015:27015/udp \
+		-p 27015:27015 \
+		-v ${CZERO_MAPS}:/hlds/czero/maps \
+		-v ${CZERO_MAPCYCLE_TXT}:/hlds/czero/mapcycle.txt \
+		-v ${CZERO_SERVER_CFG}:/hlds/czero/server.cfg \
+		-v ${MAP}:/hlds/czero/start_map.txt \
+		hlds:latest \
+		> ${CONTAINER}
+
+hlds.start:
+	cat ${CONTAINER} | xargs docker start
+
+hlds.stop:
+	cat ${CONTAINER} | xargs docker stop
+
+hlds.cleanup:
+	docker system prune
