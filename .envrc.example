@@ -1,18 +1,18 @@
-export SLACK_BOT_TOKEN=<your Bot User OAuth Token>
-export SLACK_SIGNING_SECRET=<your Signing Secret>
-export PORT=<your port>
+export SLACK_BOT_TOKEN=
+export SLACK_SIGNING_SECRET=
+export PORT=
 
-export SLACK_CSTRIKE_CHANNEL=<your slack channel id>
+export SLACK_CSTRIKE_CHANNEL=
 
-export SERVANT_PORT=<your port>
-export SERVANT_HOST=<your host>
+export SERVANT_PORT=
+export SERVANT_HOST=
 
-export CSTRIKE_MAPS=<path to your cstrike maps>
-export CZERO_MAPS=<path to your czero maps>
-export CZERO_MAPCYCLE_TXT=<path to your czero mapcycle.txt>
-export CZERO_SERVER_CFG=<path to your czero server.cfg>
+export CONTAINER=
 
-export HLDS_ROOT=<path to your hlds root>
-export HLDS_PID_FILE=<path to your hlds pid file>
+export CSTRIKE_MAPS=
+export CZERO_MAPS=
+export CZERO_MAPCYCLE_TXT=
+export CZERO_SERVER_CFG=
+export MAP=
 
 use_nix
