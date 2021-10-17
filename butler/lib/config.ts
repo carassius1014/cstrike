@@ -7,7 +7,7 @@ export { Config, parse };
 
 interface Config {
     token: string;
-    signingSecret: string;
+    appToken: string;
     port: number;
     servantHost: string;
     servantPort: number;
@@ -33,15 +33,15 @@ function parse(env: Environment): E.Either<Error, Config> {
 
     return Do(E.Monad)
         .bind('token', parseString('SLACK_BOT_TOKEN'))
-        .bind('signingSecret', parseString('SLACK_SIGNING_SECRET'))
+        .bind('appToken', parseString('SLACK_APP_TOKEN'))
         .bind('port', parseNumber('PORT'))
         .bind('cstrikeChannel', parseString('SLACK_CSTRIKE_CHANNEL'))
         .bind('servantHost', parseString('SERVANT_HOST'))
         .bind('servantPort', parseNumber('SERVANT_PORT'))
-        .return(({ token, signingSecret, port, cstrikeChannel, servantHost, servantPort }) => {
+        .return(({ token, appToken, port, cstrikeChannel, servantHost, servantPort }) => {
             return {
                 token,
-                signingSecret,
+                appToken,
                 port,
                 cstrikeChannel,
                 servantHost,

@@ -13,7 +13,7 @@ interface App {
 }
 
 function create(config: Config): App {
-    const slackApp = new SlackApp(config);
+    const slackApp = new SlackApp({ token: config.token, appToken: config.appToken, socketMode: true });
     const { servantHost, servantPort } = config;
     const grpcClient = gRPC.create(servantHost, servantPort);
     const app = { slackApp, config, grpcClient };
