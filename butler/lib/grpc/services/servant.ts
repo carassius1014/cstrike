@@ -1,6 +1,6 @@
 import { credentials } from '@grpc/grpc-js';
-import { Do } from 'fp-ts-contrib/Do';
 import * as E from 'fp-ts/Either';
+import { pipe } from 'fp-ts/function';
 import { promisify } from 'util';
 
 import { Unit } from '../../../protos/prelude_pb';
@@ -11,7 +11,7 @@ import {
     StartServerResponse,
     StopServerResponse,
 } from '../../../protos/servant_pb';
-import { ServerConfig } from '../../domain';
+import { ServerConfig } from '../../domainObjects/serverConfig';
 
 export { Service };
 
@@ -50,12 +50,13 @@ class Service {
         const nerrorMessage = res?.getErrorMessage();
 
         const mkFieldFailure = (field: string): Error => Error(`failed to fetch field: ${field}`);
-        return Do(E.Monad)
-            .bind('success', E.fromNullable(mkFieldFailure('success'))(nsuccess))
-            .bind('errorMessage', E.fromNullable(mkFieldFailure('errorMessage'))(nerrorMessage))
-            .return(({ success, errorMessage }) => {
+        return pipe(
+            E.bindTo('success')(E.fromNullable(mkFieldFailure('success'))(nsuccess)),
+            E.bind('errorMessage', () => E.fromNullable(mkFieldFailure('errorMessage'))(nerrorMessage)),
+            E.map(({ success, errorMessage }) => {
                 return { success, errorMessage };
-            });
+            })
+        );
     }
 
     public async stopServer(): Promise<E.Either<Error, { success: boolean; errorMessage: string }>> {
@@ -67,11 +68,12 @@ class Service {
         const nerrorMessage = res?.getErrorMessage();
 
         const mkFieldFailure = (field: string): Error => Error(`failed to fetch field: ${field}`);
-        return Do(E.Monad)
-            .bind('success', E.fromNullable(mkFieldFailure('success'))(nsuccess))
-            .bind('errorMessage', E.fromNullable(mkFieldFailure('errorMessage'))(nerrorMessage))
-            .return(({ success, errorMessage }) => {
+        return pipe(
+            E.bindTo('success')(E.fromNullable(mkFieldFailure('success'))(nsuccess)),
+            E.bind('errorMessage', () => E.fromNullable(mkFieldFailure('errorMessage'))(nerrorMessage)),
+            E.map(({ success, errorMessage }) => {
                 return { success, errorMessage };
-            });
+            }),
+        );
     }
 }

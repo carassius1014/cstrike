@@ -1,5 +1,5 @@
-import { Do } from 'fp-ts-contrib/Do';
 import * as E from 'fp-ts/Either';
+import { pipe } from 'fp-ts/function';
 
 import { Environment } from './env';
 
@@ -25,20 +25,21 @@ function parse(env: Environment): E.Either<Error, Config> {
 
     function parseNumber(key: string): E.Either<Error, number> {
         const fromNullable = E.fromNullable(buildError(key));
-        return Do(E.Monad)
-            .bind('val', fromNullable(env[key]))
-            .bindL('num', ({ val }) => fromNullable(parseInt(val)))
-            .return(({ num }) => num);
+        return pipe(
+            E.bindTo('val')(fromNullable(env[key])),
+            E.bind('num', ({ val }) => fromNullable(parseInt(val))),
+            E.map(({ num }) => num),
+        );
     }
 
-    return Do(E.Monad)
-        .bind('token', parseString('SLACK_BOT_TOKEN'))
-        .bind('appToken', parseString('SLACK_APP_TOKEN'))
-        .bind('port', parseNumber('PORT'))
-        .bind('cstrikeChannel', parseString('SLACK_CSTRIKE_CHANNEL'))
-        .bind('servantHost', parseString('SERVANT_HOST'))
-        .bind('servantPort', parseNumber('SERVANT_PORT'))
-        .return(({ token, appToken, port, cstrikeChannel, servantHost, servantPort }) => {
+    return pipe(
+        E.bindTo('token')(parseString('SLACK_BOT_TOKEN')),
+        E.bind('appToken', () => parseString('SLACK_APP_TOKEN')),
+        E.bind('port', () => parseNumber('PORT')),
+        E.bind('cstrikeChannel', () => parseString('SLACK_CSTRIKE_CHANNEL')),
+        E.bind('servantHost', () => parseString('SERVANT_HOST')),
+        E.bind('servantPort', () => parseNumber('SERVANT_PORT')),
+        E.map(({ token, appToken, port, cstrikeChannel, servantHost, servantPort }) => {
             return {
                 token,
                 appToken,
@@ -47,5 +48,6 @@ function parse(env: Environment): E.Either<Error, Config> {
                 servantHost,
                 servantPort,
             };
-        });
+        }),
+    );
 }

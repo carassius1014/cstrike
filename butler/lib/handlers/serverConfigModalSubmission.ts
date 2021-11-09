@@ -1,5 +1,4 @@
 import { Option } from '@slack/bolt';
-import { Do } from 'fp-ts-contrib/Do';
 import * as Console from 'fp-ts/Console';
 import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/function';
@@ -65,33 +64,38 @@ function parseServerConfig(values: Values): E.Either<Error, ServerConfig> {
         const err = buildParserError(field);
         const fromNullable = E.fromNullable(err);
 
-        return Do(E.Monad)
-            .bind('block', fromNullable(values[block_id]))
-            .bindL('action', ({ block }) => fromNullable(block[action_id]))
-            .bindL('value', ({ action }) => fromNullable((action as { value: string }).value))
-            .return(({ value }) => value);
+        return pipe(
+            E.bindTo('block')(fromNullable(values[block_id])),
+            E.bind('action', ({ block }) => fromNullable(block[action_id])),
+            E.bind('value', ({ action }) => fromNullable((action as { value: string }).value)),
+            E.map(({ value }) => value),
+        );
     }
 
     function parsePlayers(block_id: string, action_id: string): E.Either<Error, string[]> {
         const err = buildParserError('players');
         const fromNullable = E.fromNullable(err);
 
-        return Do(E.Monad)
-            .bind('block', fromNullable(values[block_id]))
-            .bindL('action', ({ block }) => fromNullable(block[action_id]))
-            .bindL('players', ({ action }) => fromNullable((action as { selected_users: string[] }).selected_users))
-            .return(({ players }) => players);
+        return pipe(
+            E.bindTo('block')(fromNullable(values[block_id])),
+            E.bind('action', ({ block }) => fromNullable(block[action_id])),
+            E.bind('players', ({ action }) => fromNullable((action as { selected_users: string[] }).selected_users)),
+            E.map(({ players }) => players),
+        );
     }
 
     function parseMaps(block_id: string, action_id: string): E.Either<Error, string[]> {
         const err = buildParserError('maps');
         const fromNullable = E.fromNullable(err);
 
-        return Do(E.Monad)
-            .bind('block', fromNullable(values[block_id]))
-            .bindL('action', ({ block }) => fromNullable(block[action_id]))
-            .bindL('options', ({ action }) => fromNullable((action as { selected_options: Option[] }).selected_options))
-            .return(({ options }) => options.map((option) => option.value as string));
+        return pipe(
+            E.bindTo('block')(fromNullable(values[block_id])),
+            E.bind('action', ({ block }) => fromNullable(block[action_id])),
+            E.bind('options', ({ action }) =>
+                fromNullable((action as { selected_options: Option[] }).selected_options),
+            ),
+            E.map(({ options }) => options.map((option) => option.value as string)),
+        );
     }
 
     const {
@@ -105,19 +109,20 @@ function parseServerConfig(values: Values): E.Either<Error, ServerConfig> {
         mapsSelectBlockId,
     } = ServerConfigModal;
 
-    return Do(E.Monad)
-        .bind('name', parseText(nameInputBlockId, nameInputActionId, 'name'))
-        .bind('password', parseText(passwordInputBlockId, passwordInputActionId, 'password'))
-        .bind('players', parsePlayers(playersSelectBlockId, playersSelectActionId))
-        .bind('maps', parseMaps(mapsSelectBlockId, mapsSelectActionId))
-        .return(({ name, password, players, maps }) => {
+    return pipe(
+        E.bindTo('name')(parseText(nameInputBlockId, nameInputActionId, 'name')),
+        E.bind('password', () => parseText(passwordInputBlockId, passwordInputActionId, 'password')),
+        E.bind('players', () => parsePlayers(playersSelectBlockId, playersSelectActionId)),
+        E.bind('maps', () => parseMaps(mapsSelectBlockId, mapsSelectActionId)),
+        E.map(({ name, password, players, maps }) => {
             return {
                 name,
                 password,
                 players,
                 maps,
             };
-        });
+        }),
+    );
 }
 
 function getOrThrow<A>(x: E.Either<Error, A>): A {
