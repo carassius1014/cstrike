@@ -4,7 +4,7 @@ const WebpackNodeExternals = require('webpack-node-externals');
 module.exports = {
     target: 'node',
     mode: 'development',
-    entry: './butler/index.ts',
+    entry: './src/index.ts',
     module: {
         rules: [
             {

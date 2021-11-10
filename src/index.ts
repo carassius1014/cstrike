@@ -2,8 +2,8 @@ import * as Console from 'fp-ts/Console';
 import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/function';
 
-import * as App from './lib/app';
-import * as Config from './lib/config';
+import * as App from './app';
+import * as Config from './config';
 
 function main(): void {
     pipe(

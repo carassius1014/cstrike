@@ -22,5 +22,5 @@
     "pretty": true,
     "target": "ES2019"
   },
-  "include": ["butler/**/*.ts"]
+  "include": ["src/**/*.ts"]
 }
