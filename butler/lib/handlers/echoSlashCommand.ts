@@ -1,30 +1,14 @@
-import * as Console from 'fp-ts/Console';
-import * as E from 'fp-ts/Either';
-import { pipe } from 'fp-ts/function';
-
 import { App } from '../app';
 
 export { handle };
 
 function handle(app: App): void {
-    const { slackApp, grpcClient } = app;
+    const { slackApp } = app;
     slackApp.command('/echo', async ({ ack, body, client }) => {
         await ack();
-        const emsg = await grpcClient.echoService.echo(body.text);
-
-        pipe(
-            emsg,
-            E.match(
-                (err) => {
-                    Console.error(err)();
-                },
-                async (message) => {
-                    await client.chat.postMessage({
-                        channel: body.channel_id,
-                        text: message,
-                    });
-                },
-            ),
-        );
+        await client.chat.postMessage({
+            channel: body.channel_id,
+            text: body.text,
+        });
     });
 }
