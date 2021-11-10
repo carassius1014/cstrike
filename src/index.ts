@@ -3,18 +3,18 @@ import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/function';
 
 import * as App from './app';
-import * as Config from './config';
+import * as Settings from './settings';
 
 function main(): void {
     pipe(
-        Config.parse(process.env),
+        Settings.make(process.env),
         E.match(
             (err) => {
                 Console.error(err)();
             },
-            async (config) => {
-                const app = App.create(config);
-                await app.slackApp.start(config.port);
+            async (settings) => {
+                const app = App.create(settings);
+                await app.slackApp.start(settings.port);
                 Console.log('cstrike-butler is up!')();
             },
         ),

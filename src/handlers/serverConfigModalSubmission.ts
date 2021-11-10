@@ -13,8 +13,8 @@ import * as ServerStartedSuccessfullyMessageBlocks from '../views/serverStartedS
 export { handle };
 
 function handle(app: App): void {
-    const { slackApp, config } = app;
-    const { cstrikeChannel } = config;
+    const { slackApp, settings } = app;
+    const { cstrikeChannel } = settings;
 
     slackApp.view(ServerConfigModal.callbackId, async ({ ack, body, client }) => {
         await ack();

@@ -1,18 +1,18 @@
 import { App as SlackApp } from '@slack/bolt';
 
-import { Config } from './config';
 import { prepareHandlers } from './handlers';
+import { Settings } from './settings';
 
 export { App, create };
 
 interface App {
     slackApp: SlackApp;
-    config: Config;
+    settings: Settings;
 }
 
-function create(config: Config): App {
-    const slackApp = new SlackApp({ token: config.token, appToken: config.appToken, socketMode: true });
-    const app = { slackApp, config };
+function create(settings: Settings): App {
+    const slackApp = new SlackApp({ token: settings.token, appToken: settings.appToken, socketMode: true });
+    const app = { slackApp, settings };
     prepareHandlers(app);
     return app;
 }

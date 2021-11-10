@@ -9,8 +9,8 @@ import * as ServerStoppedSuccessfullyMessageBlocks from '../views/serverStoppedS
 export { handle };
 
 function handle(app: App): void {
-    const { slackApp, config } = app;
-    const { cstrikeChannel } = config;
+    const { slackApp, settings } = app;
+    const { cstrikeChannel } = settings;
 
     slackApp.action(ServerStartSuccessfullyMessageBlocks.serverStopActionId, async ({ ack, client }) => {
         await ack();

@@ -12,4 +12,7 @@ export CZERO_MAPCYCLE_TXT=
 export CZERO_SERVER_CFG=
 export MAP=
 
+export DEFAULT_HOSTNAME=
+export DEFAULT_PASSWORD=
+
 use_nix
