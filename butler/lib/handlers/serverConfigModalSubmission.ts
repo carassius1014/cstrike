@@ -4,7 +4,7 @@ import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/function';
 
 import { App } from '../app';
-import { ServerConfig } from '../domain';
+import { ServerConfig } from '../domainObjects/serverConfig';
 import * as ErrorMessageBlocks from '../views/errorMessageBlocks';
 import * as ServerConfigModal from '../views/serverConfigModal';
 import * as ServerStartedSuccessfullyMessageBlocks from '../views/serverStartedSuccessfullyMessageBlocks';
