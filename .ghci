@@ -1,6 +1,0 @@
-:set prompt "\ESC[34mλ= \ESC[m"
-
-:set -XNoImplicitPrelude
-:set -XOverloadedStrings
-:set -XTypeApplications
-:set -Wno-type-defaults

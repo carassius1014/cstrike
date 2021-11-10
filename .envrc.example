@@ -4,9 +4,6 @@ export PORT=
 
 export SLACK_CSTRIKE_CHANNEL=
 
-export SERVANT_PORT=
-export SERVANT_HOST=
-
 export CONTAINER=
 
 export CSTRIKE_MAPS=

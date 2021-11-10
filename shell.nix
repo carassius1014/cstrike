@@ -7,24 +7,10 @@ let
 in pkgs.mkShell {
   buildInputs = [
     nodejs
-    pkgs.clippy
-    pkgs.cargo
-    pkgs.cargo-watch
-    pkgs.grpcurl
-    pkgs.grpc-tools
-    pkgs.haskell.packages.ghc8104.brittany
     pkgs.heroku
     pkgs.niv
     pkgs.nixfmt
-    pkgs.protobuf
-    pkgs.rustc
-    pkgs.rustfmt
-    pkgs.rust-analyzer
-    pkgs.stack
     yarn
   ];
 
-  PROTOC = "${pkgs.protobuf}/bin/protoc";
-  PROTOC_INCLUDE = "${pkgs.protobuf}/include";
-  RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
 }
