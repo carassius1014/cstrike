@@ -5,13 +5,14 @@ import * as ServerConfigModal from '../views/serverConfigModal';
 export { handle };
 
 function handle(app: App): void {
-    const { slackApp } = app;
+    const { slackApp, settings } = app;
 
     slackApp.command('/cstrike', async ({ ack, body, client }) => {
         await ack();
         const { trigger_id } = body;
 
-        const maps = listMaps();
+        const { pathToCstrikeMaps, pathToCzeroMaps } = settings;
+        const maps = await listMaps(pathToCstrikeMaps, pathToCzeroMaps);
 
         await client.views.open({
             trigger_id,
