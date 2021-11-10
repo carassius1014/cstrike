@@ -5,6 +5,7 @@ import { pipe } from 'fp-ts/function';
 
 import { App } from '../app';
 import { ServerConfig } from '../domainObjects/serverConfig';
+import { startHLDS } from '../useCases/startHLDS';
 import * as ErrorMessageBlocks from '../views/errorMessageBlocks';
 import * as ServerConfigModal from '../views/serverConfigModal';
 import * as ServerStartedSuccessfullyMessageBlocks from '../views/serverStartedSuccessfullyMessageBlocks';
@@ -12,7 +13,7 @@ import * as ServerStartedSuccessfullyMessageBlocks from '../views/serverStartedS
 export { handle };
 
 function handle(app: App): void {
-    const { slackApp, grpcClient, config } = app;
+    const { slackApp, config } = app;
     const { cstrikeChannel } = config;
 
     slackApp.view(ServerConfigModal.callbackId, async ({ ack, body, client }) => {
@@ -22,10 +23,9 @@ function handle(app: App): void {
         try {
             const config = pipe(values, parseServerConfig, getOrThrow);
 
-            const response = await grpcClient.servantService.startServer(config);
-            const res = getOrThrow(response);
+            const success = startHLDS(config);
 
-            if (res.success) {
+            if (success) {
                 await client.chat.postMessage({
                     channel: cstrikeChannel,
                     blocks: ServerStartedSuccessfullyMessageBlocks.buildView({
@@ -34,9 +34,11 @@ function handle(app: App): void {
                     }),
                 });
             } else {
+                const why = 'something wrong happened!'; // TODO: get error message from use case response
+
                 await client.chat.postMessage({
                     channel: cstrikeChannel,
-                    blocks: ErrorMessageBlocks.buildView({ why: res.errorMessage }),
+                    blocks: ErrorMessageBlocks.buildView({ why }),
                 });
             }
         } catch (e) {
