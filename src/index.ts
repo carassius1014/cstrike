@@ -13,7 +13,7 @@ function main(): void {
                 Console.error(err)();
             },
             async (settings) => {
-                const app = App.create(settings);
+                const app = await App.make(settings);
                 await app.slackApp.start(settings.port);
                 Console.log('cstrike-butler is up!')();
             },

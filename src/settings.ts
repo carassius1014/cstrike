@@ -9,6 +9,7 @@ interface Settings {
     token: string;
     appToken: string;
     port: number;
+    pathToContainerID: string;
     cstrikeChannel: string;
     pathToCstrikeMaps: string;
     pathToCzeroMaps: string;
@@ -41,6 +42,7 @@ function make(env: Environment): E.Either<Error, Settings> {
         E.bindTo('token')(parseString('SLACK_BOT_TOKEN')),
         E.bind('appToken', () => parseString('SLACK_APP_TOKEN')),
         E.bind('port', () => parseNumber('PORT')),
+        E.bind('pathToContainerID', () => parseString('CONTAINER')),
         E.bind('cstrikeChannel', () => parseString('SLACK_CSTRIKE_CHANNEL')),
         E.bind('pathToCstrikeMaps', () => parseString('CSTRIKE_MAPS')),
         E.bind('pathToCzeroMaps', () => parseString('CZERO_MAPS')),
@@ -54,6 +56,7 @@ function make(env: Environment): E.Either<Error, Settings> {
                 token,
                 appToken,
                 port,
+                pathToContainerID,
                 cstrikeChannel,
                 pathToCstrikeMaps,
                 pathToCzeroMaps,
@@ -67,6 +70,7 @@ function make(env: Environment): E.Either<Error, Settings> {
                     token,
                     appToken,
                     port,
+                    pathToContainerID,
                     cstrikeChannel,
                     pathToCstrikeMaps,
                     pathToCzeroMaps,

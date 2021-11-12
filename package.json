@@ -28,7 +28,8 @@
   },
   "dependencies": {
     "@slack/bolt": "^3.3.0",
-    "fp-ts": "^2.10.5"
+    "fp-ts": "^2.10.5",
+    "node-docker-api": "^1.1.22"
   },
   "engines": {
     "node": ">=11.14.0"
