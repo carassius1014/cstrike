@@ -1,5 +1,4 @@
 import { Option } from '@slack/bolt';
-import * as Console from 'fp-ts/Console';
 import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/function';
 
@@ -23,26 +22,21 @@ function handle(app: App): void {
         try {
             const config = pipe(values, parseServerConfig, getOrThrow);
 
-            const success = startHLDS(config);
+            await startHLDS(settings, config);
 
-            if (success) {
-                await client.chat.postMessage({
-                    channel: cstrikeChannel,
-                    blocks: ServerStartedSuccessfullyMessageBlocks.buildView({
-                        users: config.players,
-                        maps: config.maps,
-                    }),
-                });
-            } else {
-                const why = 'something wrong happened!'; // TODO: get error message from use case response
-
-                await client.chat.postMessage({
-                    channel: cstrikeChannel,
-                    blocks: ErrorMessageBlocks.buildView({ why }),
-                });
-            }
+            await client.chat.postMessage({
+                channel: cstrikeChannel,
+                blocks: ServerStartedSuccessfullyMessageBlocks.buildView({
+                    users: config.players,
+                    maps: config.maps,
+                }),
+            });
         } catch (e) {
-            Console.error(e)();
+            const why = (e as Error).message;
+            await client.chat.postMessage({
+                channel: cstrikeChannel,
+                blocks: ErrorMessageBlocks.buildView({ why }),
+            });
         }
     });
 }
