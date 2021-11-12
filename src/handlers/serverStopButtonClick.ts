@@ -1,5 +1,3 @@
-import * as Console from 'fp-ts/Console';
-
 import { App } from '../app';
 import { stopHLDS } from '../useCases/stopHLDS';
 import * as ErrorMessageBlocks from '../views/errorMessageBlocks';
@@ -16,23 +14,18 @@ function handle(app: App): void {
         await ack();
 
         try {
-            const success = stopHLDS();
+            await stopHLDS(app);
 
-            if (success) {
-                await client.chat.postMessage({
-                    channel: cstrikeChannel,
-                    blocks: ServerStoppedSuccessfullyMessageBlocks.buildView(),
-                });
-            } else {
-                const why = 'something wrong happened!'; // TODO: get error message from use case response
-
-                await client.chat.postMessage({
-                    channel: cstrikeChannel,
-                    blocks: ErrorMessageBlocks.buildView({ why }),
-                });
-            }
+            await client.chat.postMessage({
+                channel: cstrikeChannel,
+                blocks: ServerStoppedSuccessfullyMessageBlocks.buildView(),
+            });
         } catch (e) {
-            Console.error(e)();
+            const why = (e as Error).message;
+            await client.chat.postMessage({
+                channel: cstrikeChannel,
+                blocks: ErrorMessageBlocks.buildView({ why }),
+            });
         }
     });
 }

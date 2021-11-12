@@ -1,5 +1,9 @@
+import { App } from "../app";
+import { stopContainer } from "../docker";
+
 export { stopHLDS };
 
-function stopHLDS(): boolean {
-    throw Error('not implemented!');
+async function stopHLDS(app: App): Promise<void> {
+    const { containerID, dockerClient } = app;
+    await stopContainer(dockerClient, containerID);
 }
