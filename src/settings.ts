@@ -15,7 +15,7 @@ interface Settings {
     pathToCzeroMaps: string;
     pathToCzeroMapcycleTxt: string;
     pathToCzeroServerCfg: string;
-    initialMap: string;
+    pathToStartMap: string;
     defaultHostname: string;
     defaultPassword: string;
 }
@@ -48,7 +48,7 @@ function make(env: Environment): E.Either<Error, Settings> {
         E.bind('pathToCzeroMaps', () => parseString('CZERO_MAPS')),
         E.bind('pathToCzeroMapcycleTxt', () => parseString('CZERO_MAPCYCLE_TXT')),
         E.bind('pathToCzeroServerCfg', () => parseString('CZERO_SERVER_CFG')),
-        E.bind('initialMap', () => parseString('MAP')),
+        E.bind('pathToStartMap', () => parseString('MAP')),
         E.bind('defaultHostname', () => parseString('DEFAULT_HOSTNAME')),
         E.bind('defaultPassword', () => parseString('DEFAULT_PASSWORD')),
         E.map(
@@ -62,7 +62,7 @@ function make(env: Environment): E.Either<Error, Settings> {
                 pathToCzeroMaps,
                 pathToCzeroMapcycleTxt,
                 pathToCzeroServerCfg,
-                initialMap,
+                pathToStartMap,
                 defaultHostname,
                 defaultPassword,
             }) => {
@@ -76,7 +76,7 @@ function make(env: Environment): E.Either<Error, Settings> {
                     pathToCzeroMaps,
                     pathToCzeroMapcycleTxt,
                     pathToCzeroServerCfg,
-                    initialMap,
+                    pathToStartMap,
                     defaultHostname,
                     defaultPassword,
                 };
