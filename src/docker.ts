@@ -35,5 +35,5 @@ async function stopContainer(client: Docker, containerID: string): Promise<void>
 
 async function findContainerByID(client: Docker, containerID: string): Promise<Container | undefined> {
     const containers = await client.container.list({ all: true });
-    return containers.find(container => container.id === containerID);
+    return containers.find((container) => container.id === containerID);
 }

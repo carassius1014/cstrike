@@ -1,6 +1,7 @@
 import { Option } from '@slack/bolt';
 import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/function';
+import * as NE from 'fp-ts/NonEmptyArray';
 
 import { App } from '../app';
 import { ServerConfig } from '../domainObjects/serverConfig';
@@ -22,7 +23,7 @@ function handle(app: App): void {
         try {
             const config = pipe(values, parseServerConfig, getOrThrow);
 
-            await startHLDS(settings, config);
+            await startHLDS(app, config);
 
             await client.chat.postMessage({
                 channel: cstrikeChannel,
@@ -80,7 +81,7 @@ function parseServerConfig(values: Values): E.Either<Error, ServerConfig> {
         );
     }
 
-    function parseMaps(block_id: string, action_id: string): E.Either<Error, string[]> {
+    function parseMaps(block_id: string, action_id: string): E.Either<Error, NE.NonEmptyArray<string>> {
         const err = buildParserError('maps');
         const fromNullable = E.fromNullable(err);
 
@@ -91,6 +92,7 @@ function parseServerConfig(values: Values): E.Either<Error, ServerConfig> {
                 fromNullable((action as { selected_options: Option[] }).selected_options),
             ),
             E.map(({ options }) => options.map((option) => option.value as string)),
+            E.chainOptionK(() => Error('empty maps'))(NE.fromArray),
         );
     }
 

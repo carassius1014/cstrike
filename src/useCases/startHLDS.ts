@@ -1,16 +1,27 @@
+import * as NE from 'fp-ts/NonEmptyArray';
 import * as fs from 'fs';
 
+import { App } from '../app';
+import { startContainer } from '../docker';
 import { ServerConfig } from '../domainObjects/serverConfig';
-import { Settings } from '../settings';
 
 export { startHLDS, renderHLDSConfig };
 
-async function startHLDS(settings: Settings, config: ServerConfig): Promise<void> {
-    const { pathToCzeroServerCfg } = settings;
+async function startHLDS(app: App, config: ServerConfig): Promise<void> {
+    const { containerID, dockerClient, settings } = app;
+    const { pathToCzeroServerCfg, pathToStartMap, pathToCzeroMapcycleTxt } = settings;
 
     const hldsConfig = buildHLDSConfig(config);
     const newConfig = renderHLDSConfig(hldsConfig);
     await fs.promises.writeFile(pathToCzeroServerCfg, newConfig);
+
+    const startMap = NE.head(config.maps);
+    await fs.promises.writeFile(pathToStartMap, startMap);
+
+    const mapCycle = NE.tail(config.maps);
+    await fs.promises.writeFile(pathToCzeroMapcycleTxt, mapCycle.join('\n'));
+
+    await startContainer(dockerClient, containerID);
 }
 
 enum BotQuotaMode {
