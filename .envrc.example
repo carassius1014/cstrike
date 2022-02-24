@@ -6,8 +6,8 @@ export SLACK_CSTRIKE_CHANNEL=
 
 export CONTAINER=
 
-export CSTRIKE_MAPS=
-export CZERO_MAPS=
+export CSTRIKE_DIR=
+export CZERO_DIR=
 export CZERO_MAPCYCLE_TXT=
 export CZERO_SERVER_CFG=
 export MAP=

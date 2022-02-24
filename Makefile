@@ -40,10 +40,17 @@ hlds.create:
 		--name hlds \
 		-p 27015:27015/udp \
 		-p 27015:27015 \
-		-v ${CZERO_MAPS}:/hlds/czero/maps \
-		-v ${CZERO_MAPCYCLE_TXT}:/hlds/czero/mapcycle.txt \
-		-v ${CZERO_SERVER_CFG}:/hlds/czero/server.cfg \
+		-v ${CSTRIKE_DIR}/gfx:/hlds/cstrike/gfx \
+		-v ${CSTRIKE_DIR}/maps:/hlds/cstrike/maps \
+		-v ${CSTRIKE_DIR}/models:/hlds/cstrike/models \
+		-v ${CSTRIKE_DIR}/overviews:/hlds/cstrike/overviews \
+		-v ${CZERO_DIR}/gfx:/hlds/czero/gfx \
+		-v ${CZERO_DIR}/maps:/hlds/czero/maps \
+		-v ${CZERO_DIR}/models:/hlds/czero/models \
+		-v ${CZERO_DIR}/overviews:/hlds/czero/overviews \
 		-v ${MAP}:/hlds/czero/start_map.txt \
+		-v ${MAPCYCLE_TXT}:/hlds/czero/mapcycle.txt \
+		-v ${SERVER_CFG}:/hlds/czero/server.cfg \
 		hlds:latest \
 		> ${CONTAINER}
 
@@ -52,6 +59,10 @@ hlds.start:
 
 hlds.stop:
 	cat ${CONTAINER} | xargs docker stop
+
+hlds.restart:
+	@make hlds.stop
+	@make hlds.start
 
 hlds.cleanup:
 	docker system prune
