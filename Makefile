@@ -49,8 +49,8 @@ hlds.create:
 		-v ${CZERO_DIR}/models:/hlds/czero/models \
 		-v ${CZERO_DIR}/overviews:/hlds/czero/overviews \
 		-v ${MAP}:/hlds/czero/start_map.txt \
-		-v ${MAPCYCLE_TXT}:/hlds/czero/mapcycle.txt \
-		-v ${SERVER_CFG}:/hlds/czero/server.cfg \
+		-v ${CZERO_MAPCYCLE_TXT}:/hlds/czero/mapcycle.txt \
+		-v ${CZERO_SERVER_CFG}:/hlds/czero/server.cfg \
 		hlds:latest \
 		> ${CONTAINER}
 
