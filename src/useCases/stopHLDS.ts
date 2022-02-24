@@ -1,5 +1,5 @@
-import { App } from "../app";
-import { stopContainer } from "../docker";
+import { App } from '../app';
+import { stopContainer } from '../docker';
 
 export { stopHLDS };
 
