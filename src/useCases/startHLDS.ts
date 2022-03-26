@@ -41,6 +41,7 @@ interface HLDSConfig {
     bot_allow_shield: boolean;
     bot_auto_vacate: boolean;
     bot_join_after_player: boolean;
+    bot_join_team: 'ct' | 't' | 'any';
     bot_difficulty: BotDifficulty;
     bot_quota: number;
     bot_quota_mode: BotQuotaMode;
@@ -59,8 +60,9 @@ const defaultHLDSConfig: HLDSConfig = {
     bot_allow_shield: false,
     bot_auto_vacate: true,
     bot_difficulty: BotDifficulty.Expert,
+    bot_join_team: 't',
     bot_join_after_player: true,
-    bot_quota: 9,
+    bot_quota: 5,
     bot_quota_mode: BotQuotaMode.Fill,
     hostname: 'Counter-Strike: Condition Zero',
     mp_winlimit: 11,
@@ -74,10 +76,8 @@ const defaultHLDSConfig: HLDSConfig = {
 };
 
 function buildHLDSConfig(config: ServerConfig): HLDSConfig {
-    const { name, password, players } = config;
-    // TODO: move max players to `ServerConfig`
-    const maxPlayers = 10;
-    return { ...defaultHLDSConfig, hostname: name, sv_password: password, bot_quota: maxPlayers - players.length };
+    const { name, password } = config;
+    return { ...defaultHLDSConfig, hostname: name, sv_password: password };
 }
 
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
