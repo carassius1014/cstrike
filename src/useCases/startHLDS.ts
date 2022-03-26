@@ -77,7 +77,7 @@ const defaultHLDSConfig: HLDSConfig = {
 
 function buildHLDSConfig(config: ServerConfig): HLDSConfig {
     const { name, password } = config;
-    return { ...defaultHLDSConfig, hostname: name, sv_password: password };
+    return { ...defaultHLDSConfig, hostname: name, mp_autoteambalance: false, sv_password: password };
 }
 
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
