@@ -62,7 +62,7 @@ const defaultHLDSConfig: HLDSConfig = {
     bot_difficulty: BotDifficulty.Expert,
     bot_join_team: 't',
     bot_join_after_player: true,
-    bot_quota: 5,
+    bot_quota: 6,
     bot_quota_mode: BotQuotaMode.Fill,
     hostname: 'Counter-Strike: Condition Zero',
     mp_winlimit: 11,
