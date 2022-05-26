@@ -49,6 +49,7 @@ interface HLDSConfig {
     mp_winlimit: number;
     mp_timelimit: number;
     mp_autoteambalance: boolean;
+    mp_friendlyfire: boolean;
     pausable: boolean;
     sv_aim: boolean;
     sv_password: string;
@@ -68,6 +69,7 @@ const defaultHLDSConfig: HLDSConfig = {
     mp_winlimit: 11,
     mp_timelimit: 120,
     mp_autoteambalance: true,
+    mp_friendlyfire: true,
     pausable: false,
     sv_aim: false,
     sv_password: '',
