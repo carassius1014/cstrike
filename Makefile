@@ -35,6 +35,8 @@ hlds.create:
 		-v ${CZERO_DIR}/overviews:/hlds/czero/overviews \
 		-v ${CZERO_DIR}/sound:/hlds/czero/sound \
 		-v ${CZERO_DIR}/sprites:/hlds/czero/sprites \
+		-v ${CZERO_DIR}/de_nifan_LG.wad:/hlds/czero/de_nifan_LG.wad \
+		-v ${CZERO_DIR}/de_nust2.wad:/hlds/czero/de_nust2.wad \
 		-v ${MAP}:/hlds/czero/start_map.txt \
 		-v ${CZERO_MAPCYCLE_TXT}:/hlds/czero/mapcycle.txt \
 		-v ${CZERO_SERVER_CFG}:/hlds/czero/server.cfg \
