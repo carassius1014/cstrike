@@ -1,10 +1,10 @@
-{ }:
+{ pkgs }:
 
-let
-  pkgs = import ./nix/pkgs.nix;
-  nodejs = import ./nix/nodejs.nix;
-  yarn = import ./nix/yarn.nix;
-in pkgs.mkShell {
-  buildInputs = [ nodejs pkgs.heroku pkgs.niv pkgs.nixfmt yarn ];
+let yarnFix = pkgs.yarn.override { nodejs = pkgs.nodejs-18_x; };
+
+in with pkgs;
+
+mkShell {
+  buildInputs = [ nodejs-18_x nixfmt yarnFix ];
 
 }
