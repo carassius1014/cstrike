@@ -20,6 +20,9 @@ lint:
 lint.fix:
 	yarn eslint --ext ts --fix .
 
+hlds.build:
+	docker build -t hlds .
+
 hlds.create:
 	docker create \
 		--name hlds \
