@@ -28,10 +28,10 @@ RUN curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.t
 
 # Install CS:CZ via steamcmd
 RUN ./steamcmd.sh +login anonymous +app_set_config 90 mod czero +quit || true
-RUN ./steamcmd.sh +login anonymous +force_install_dir /hlds +app_update 90 validate +quit || true
+RUN ./steamcmd.sh +force_install_dir /hlds +login anonymous +app_update 90 validate +quit || true
 RUN ./steamcmd.sh +login anonymous +app_update 80 validate +quit || true
 RUN ./steamcmd.sh +login anonymous +app_update 10 validate +quit || true
-RUN ./steamcmd.sh +login anonymous +force_install_dir /hlds +app_update 90 validate +quit
+RUN ./steamcmd.sh +force_install_dir /hlds +login anonymous +app_update 90 validate +quit
 
 # Link sdk
 WORKDIR /root/.steam
