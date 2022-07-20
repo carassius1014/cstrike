@@ -5,7 +5,7 @@ ARG BUILD_DATE
 ARG VCS_REF
 LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.vcs-url="https://github.com/momoyama-south-gate/cstrike-docker"
+      org.label-schema.vcs-url="https://github.com/carassius1014/cstrike-slack"
 
 # Define default env variables
 ENV PORT 27015
