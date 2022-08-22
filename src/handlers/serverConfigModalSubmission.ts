@@ -1,4 +1,5 @@
 import { Option } from '@slack/bolt';
+import * as A from 'fp-ts/Array';
 import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/function';
 import * as NE from 'fp-ts/NonEmptyArray';
@@ -27,10 +28,7 @@ function handle(app: App): void {
 
             await client.chat.postMessage({
                 channel: cstrikeChannel,
-                blocks: ServerStartedSuccessfullyMessageBlocks.buildView({
-                    users: config.players,
-                    maps: config.maps,
-                }),
+                blocks: ServerStartedSuccessfullyMessageBlocks.buildView(buildTeamings(config)),
             });
         } catch (e) {
             const why = (e as Error).message;
@@ -39,6 +37,35 @@ function handle(app: App): void {
                 blocks: ErrorMessageBlocks.buildView({ why }),
             });
         }
+    });
+}
+
+function shuffle<T>(array: T[]): T[] {
+    const out = Array.from(array);
+    for (let i = out.length - 1; i > 0; i--) {
+        const r = Math.floor(Math.random() * (i + 1));
+        const tmp = out[i];
+        out[i] = out[r];
+        out[r] = tmp;
+    }
+    return out;
+}
+
+function teamup<A>(xs: A[]): [A[], A[]] {
+    const length = xs.length;
+    const half = Math.floor(length / 2);
+    const shuffled = shuffle(xs);
+    return A.splitAt(half)(shuffled);
+}
+
+function buildTeamings(config: ServerConfig): ServerStartedSuccessfullyMessageBlocks.Teaming[] {
+    return config.maps.map((map) => {
+        const [ts, cts] = teamup(config.players);
+        return {
+            map,
+            ts,
+            cts,
+        };
     });
 }
 

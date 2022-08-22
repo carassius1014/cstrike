@@ -7,21 +7,21 @@ import * as Header from './header';
 import * as MrkdwnText from './mrkdwnText';
 import * as PlainText from './plainText';
 
-export { Input, buildView, serverStopActionId };
+export { Teaming, buildView, serverStopActionId };
 
 const serverStopActionId = 'button-ServerStartedSuccessfullyMessageBlocks_Stop_Server';
 
-interface Input {
-    users: string[];
-    maps: string[];
+interface Teaming {
+    map: string;
+    ts: string[];
+    cts: string[];
 }
 
-function buildView({ users, maps }: Input): Array<Block | KnownBlock> {
+function buildView(teamings: Teaming[]): Array<Block | KnownBlock> {
     return [
         Header.buildView({ text: 'HLDS server is running :v:' }),
         Divider.buildView(),
-        { type: 'section', text: MrkdwnText.buildView({ text: users.map(mention).join(' ') }) },
-        { type: 'section', text: MrkdwnText.buildView({ text: list(maps) }) },
+        { type: 'section', text: MrkdwnText.buildView({ text: teamings.map(renderTeaming).join('\n') }) },
         {
             type: 'section',
             text: MrkdwnText.buildView({ text: 'To stop the running hlds server, click: ' }),
@@ -44,10 +44,6 @@ function mention(userID: string): string {
     return `<@${userID}>`;
 }
 
-function itemize(item: string): string {
-    return `- ${item}`;
-}
-
-function list(xs: string[]): string {
-    return xs.map(itemize).join('\n');
+function renderTeaming(teaming: Teaming): string {
+    return `- ${teaming.map} (T: ${teaming.ts.map(mention).join(' ')} CT: ${teaming.cts.map(mention).join(' ')})`;
 }
