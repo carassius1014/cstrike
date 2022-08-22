@@ -14,6 +14,11 @@ build:
 start:
 	node dist/bundle.js
 
+process.restart:
+	pm2 kill && \
+		make build && \
+		pm2 start dist/bundle.js
+
 lint:
 	yarn eslint --ext ts .
 
