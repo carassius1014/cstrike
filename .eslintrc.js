@@ -12,6 +12,7 @@ module.exports = {
     plugins: ['@typescript-eslint', 'import', 'node'],
     rules: {
         '@typescript-eslint/naming-convention': 'off',
+        '@typescript-eslint/no-use-before-define': 'off',
         'node/no-extraneous-import': 'off',
         'node/no-missing-import': 'off',
     },
